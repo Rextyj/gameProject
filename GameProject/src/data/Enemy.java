@@ -88,7 +88,12 @@ public class Enemy {
 //			}
 			if(checkPointReached()){
 //				System.out.println("increment");
-				currentCheckPoint++;
+				if(currentCheckPoint + 1 == checkpoints.size()){
+					System.out.println("Enemy reached the end of the maze");
+				} else {
+					currentCheckPoint++;
+				}
+				
 			} 
 			else {
 				x += delta() * checkpoints.get(currentCheckPoint).getxDirection() * speed;
