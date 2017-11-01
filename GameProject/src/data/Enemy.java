@@ -128,16 +128,16 @@ public class Enemy {
 		Tile d = grid.getTile(s.getXPlace(), s.getYPlace() + 1);
 		Tile l = grid.getTile(s.getXPlace() - 1, s.getYPlace());
 		
-		if(s.getType() == u.getType()){
+		if(s.getType() == u.getType() && directions[1] != 1){//second condition stops the enemy from moving backwards
 			dir[0] = 0;
 			dir[1] = -1;
-		} else if(s.getType() == r.getType()){
+		} else if(s.getType() == r.getType() && directions[0] != -1){
 			dir[0] = 1;
 			dir[1] = 0;
-		} else if(s.getType() == d.getType()){
+		} else if(s.getType() == d.getType() && directions[1] != -1){
 			dir[0] = 0;
 			dir[1] = 1;
-		} else if(s.getType() == l.getType()){
+		} else if(s.getType() == l.getType() && directions[0] != 1){
 			dir[0] = -1;
 			dir[1] = 0;
 		} else {
