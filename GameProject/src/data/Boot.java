@@ -46,7 +46,7 @@ public class Boot {
 		    grid.draw();
 		    wave.update();
 		    player.update();
-		    tower.draw();
+		    tower.update();
 		    
 		    Display.update();
 			Display.sync(60);

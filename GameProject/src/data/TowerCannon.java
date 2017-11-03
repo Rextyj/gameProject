@@ -1,15 +1,21 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
+import static helpers.Clock.delta;
 
-import static helpers.Artist.*;
+import java.util.ArrayList;
+
+import org.newdawn.slick.opengl.Texture;
 
 public class TowerCannon {
 	
-	private float x, y;
+	private float x, y, timeSinceLastShot, firingSpeed;
 	private int width, height, damage;
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
+	private ArrayList<Projectile> projectiles;
+	
 	
 	public TowerCannon(Texture baseTexture, Tile startTile, int damage){
 		this.baseTexture = baseTexture;
@@ -20,10 +26,26 @@ public class TowerCannon {
 		this.width = (int) startTile.getWidth();
 		this.height = (int) startTile.getHeight();
 		this.damage = damage;
+		firingSpeed = 30;
+		this.timeSinceLastShot = 0;
+		this.projectiles = new ArrayList<Projectile>();
+	}
+	
+	private void shoot(){
+		timeSinceLastShot = 0;
+		projectiles.add(new Projectile(quickLoad("bullet"), x + 32, y + 32, 5, 10));
 	}
 	
 	public void update(){
+		timeSinceLastShot += delta();
+		if(timeSinceLastShot > firingSpeed){
+			shoot();
+		}
 		
+		for(Projectile p : projectiles){
+			p.update();
+		}
+		draw();
 	}
 	
 	public void draw(){
