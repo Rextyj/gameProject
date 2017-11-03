@@ -69,6 +69,24 @@ public class Artist {
 		glLoadIdentity();//stops continues drawing?
 	}
 	
+	public static void drawQuadTexRot(Texture tex, float x, float y, float width, float height, float angle){
+		tex.bind();//all drawing will be filled with this texture until replaced by another texture
+		glTranslatef(x + width / 2, y + height / 2, 0);//translate to the center of the tile
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(- width / 2, - height / 2, 0);//translate back to the top left corner
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0);
+		glVertex2f(width, 0);
+		glTexCoord2f(1, 1);
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height);
+		glEnd();
+		glLoadIdentity();//stops continues drawing?
+	}
+	
 	public static Texture loadTexture(String path, String fileType){
 		Texture tex = null;
 		InputStream in = ResourceLoader.getResourceAsStream(path);

@@ -31,22 +31,12 @@ public class Boot {
 				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 		};
 		
-		TileGrid grid = new TileGrid(map);
-		grid.setTile(2, 1, grid.getTile(6, 5).getType());
-		Enemy e = new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, 64, 64, 3);
-		Wave wave = new Wave(20, e);
-		Player player = new Player(grid);
-		
-		TowerCannon tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(11,10), 10);
-		
+		Game game = new Game(map);
 		//keep the display open until close is requested
 		while(!Display.isCloseRequested()){//keep running until hitting x
 			Clock.update();
 			
-		    grid.draw();
-		    wave.update();
-		    player.update();
-		    tower.update();
+			game.update();
 		    
 		    Display.update();
 			Display.sync(60);
