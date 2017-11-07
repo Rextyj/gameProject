@@ -19,12 +19,22 @@ public class WaveManager {
 	}
 	
 	public void update(){
-		if(currentWave != null){
+		if(!currentWave.isCompleted()){
 			currentWave.update();
+		} else {
+			newWave();
 		}
+		
 	}
 	
 	public void newWave(){
 		currentWave = new Wave(enemyType, timeBetweenEnemies, enemiesPerWave);
+		waveNumber++;
+		
 	}
+
+	public Wave getCurrentWave() {
+		return currentWave;
+	}
+	
 }

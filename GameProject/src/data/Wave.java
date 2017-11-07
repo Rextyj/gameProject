@@ -10,30 +10,40 @@ public class Wave {
 	private Enemy enemyType;
 	private ArrayList<Enemy> enemyList;
 	private int enemiesPerWave;
+	private boolean waveCompleted;
 	
 	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
 		this.enemyType = enemyType;
 		this.spawnTime = spawnTime;
 		this.enemiesPerWave = enemiesPerWave;
-		timeSinceLastSpawn = 0;
-		enemyList = new ArrayList<Enemy>();
+		this.timeSinceLastSpawn = 0;
+		this.enemyList = new ArrayList<Enemy>();
+		this.waveCompleted = false;
 		
 		spawn();//spawn the first enemy when program started
 	}
 
 	public void update() {
-		timeSinceLastSpawn += delta();
-		if (timeSinceLastSpawn > spawnTime) {
-			spawn();
-			timeSinceLastSpawn = 0;
+		boolean allEnemiesDead = true;
+		//continue spawning until reaching the number required
+		if(enemyList.size() < enemiesPerWave){
+			timeSinceLastSpawn += delta();
+			if (timeSinceLastSpawn > spawnTime) {
+				spawn();
+				timeSinceLastSpawn = 0;
+			}
 		}
-
+		
 		for (Enemy e : enemyList) {
 			if (e.isAlive()) {
+				allEnemiesDead = false;
 				e.update();
 				e.draw();
 			}
-
+		}
+		
+		if(allEnemiesDead){
+			waveCompleted = true;
 		}
 	}
 
@@ -41,4 +51,14 @@ public class Wave {
 		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(), 64, 64,
 				enemyType.getSpeed()));
 	}
+	
+	public boolean isCompleted(){
+		return waveCompleted;
+	}
+
+	public ArrayList<Enemy> getEnemyList() {
+		return enemyList;
+	}
+	
+	
 }
