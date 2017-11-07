@@ -15,14 +15,15 @@ public class Game {
 	public Game(int[][] map){
 		grid = new TileGrid(map);
 		player = new Player(grid);
-		wave = new Wave(4, new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, 64, 64, 40));
+		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, 64, 64, 40),
+					4, 5);
 		
 		tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(11,10), 10);
 	}
 	
 	public void update(){
 		grid.draw();
-		wave.update();
+		waveManager.update();
 		player.update();
 		tower.update();
 	}
