@@ -17,10 +17,10 @@ public class Clock {
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = getTime();
 		//stops enemy from jumping when moving the window
-		if(delta * 0.01f > 0.5f){
-			return 0.5f;
+		if(delta * 0.001f > 0.05f){
+			return 0.05f;
 		}
-		return delta * 0.01f;
+		return delta * 0.001f;
 	}
 	
 	public static float delta(){

@@ -9,11 +9,16 @@ public class Wave {
 	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
 	private ArrayList<Enemy> enemyList;
-
-	public Wave(float spawnTime, Enemy enemyType) {
+	private int enemiesPerWave;
+	
+	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
 		this.enemyType = enemyType;
 		this.spawnTime = spawnTime;
+		this.enemiesPerWave = enemiesPerWave;
+		timeSinceLastSpawn = 0;
 		enemyList = new ArrayList<Enemy>();
+		
+		spawn();//spawn the first enemy when program started
 	}
 
 	public void update() {
