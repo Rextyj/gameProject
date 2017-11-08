@@ -47,7 +47,8 @@ public class TowerCannon {
 	
 	private void shoot(){
 		timeSinceLastShot = 0;
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + 32, y + 32, 150, 10));
+		//projectile texture is size 32 so we need to move back 16 in both direction
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 150, 10));
 	}
 	
 	public void update(){

@@ -7,7 +7,7 @@ public class Game {
 	private TileGrid grid;
 	private Player player;
 	private WaveManager waveManager;
-	
+	public static final int TILE_SIZE = 64;
 	
 	
 	public Game(int[][] map){

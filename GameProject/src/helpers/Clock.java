@@ -44,7 +44,7 @@ public class Clock {
 		totalTime += d;
 	}
 	
-	public static void changeMultiplier(int change){//speed up or slow down
+	public static void changeMultiplier(float change){//speed up or slow down
 		if(multiplier + change < -1 || multiplier + change > 7){
 			
 		} else {

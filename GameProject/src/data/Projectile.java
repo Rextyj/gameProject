@@ -24,8 +24,8 @@ public class Projectile {
 	
 	private void calculateDirection(){
 		float totalAllowedMovement = 1.0f;
-		float xDistanceFromTarget = Math.abs(target.getX() - x);
-		float yDistanceFromTarget = Math.abs(target.getY() - y);
+		float xDistanceFromTarget = Math.abs(target.getX() + Game.TILE_SIZE / 2 - (x  + Game.TILE_SIZE / 4));//plus 32 because we want to aim at the center
+		float yDistanceFromTarget = Math.abs(target.getY() + Game.TILE_SIZE / 2 - (y  + Game.TILE_SIZE / 4));
 		float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;

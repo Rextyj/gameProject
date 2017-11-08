@@ -2,6 +2,9 @@ package data;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+
+import helpers.Clock;
+
 import static helpers.Artist.*;
 
 import java.util.ArrayList;
@@ -49,8 +52,12 @@ public class Player {
 		//keyboard input
 		while(Keyboard.next()){
 			if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()){
-				moveIndex();
+				Clock.changeMultiplier(0.2f);//speed up
 			}
+			if(Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState()){
+				Clock.changeMultiplier(-0.2f);//slow down
+			}
+			
 			if(Keyboard.getEventKey() == Keyboard.KEY_T && Keyboard.getEventKeyState()){
 				towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(9, 9), 10, waveManager.getCurrentWave().getEnemyList()));
 			}
