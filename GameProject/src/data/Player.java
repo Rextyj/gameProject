@@ -13,6 +13,7 @@ public class Player {
 	private int index;
 	private WaveManager waveManager;
 	private ArrayList<TowerCannon> towerList;
+	private boolean leftMoustButtonDown;
 	
 	public Player(TileGrid grid, WaveManager waveManager){
 		this.grid = grid;
@@ -23,6 +24,7 @@ public class Player {
 		this.index = 0;
 		this.waveManager = waveManager;
 		this.towerList = new ArrayList<TowerCannon> ();
+		this.leftMoustButtonDown = false;
 	}
 	
 	public void setTile(){
@@ -37,9 +39,12 @@ public class Player {
 		}
 		
 		//mouse
-		if(Mouse.isButtonDown(0)){//0 is for left button, 1 right
-			setTile();
+		if(Mouse.isButtonDown(0) && !leftMoustButtonDown){//0 is for left button, 1 right
+		
+			towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1)/ 64), 10, waveManager.getCurrentWave().getEnemyList()));
+//			setTile();
 		}
+		leftMoustButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
 		
 		//keyboard input
 		while(Keyboard.next()){
