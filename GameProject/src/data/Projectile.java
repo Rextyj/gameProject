@@ -31,10 +31,10 @@ public class Projectile {
 		xVelocity = xPercentOfMovement;
 		yVelocity = totalAllowedMovement - xPercentOfMovement;
 		
-		if(target.getX() < x){
+		if(target.getX() + Game.TILE_SIZE / 2 < x + Game.TILE_SIZE / 4){
 			xVelocity *= -1;
 		}
-		if(target.getY() < y){
+		if(target.getY() + Game.TILE_SIZE / 2 < y + Game.TILE_SIZE / 4){
 			yVelocity *= -1;
 		}
 	}
