@@ -27,6 +27,13 @@ public class MainMenu {
 			if(menuUI.isButtonClicked("Play")){
 				StateManager.setState(GameState.GAME);
 			}
+			if(menuUI.isButtonClicked("Quit")){
+//				StateManager.setState(GameState.GAME);
+				System.exit(0);
+			}
+			if(menuUI.isButtonClicked("Editor")){
+				StateManager.setState(GameState.EDITOR);
+			}
 		}
 	}
 	

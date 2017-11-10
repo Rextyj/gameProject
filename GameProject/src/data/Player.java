@@ -30,10 +30,7 @@ public class Player {
 		this.leftMoustButtonDown = false;
 	}
 	
-	public void setTile(){
-		
-		grid.setTile((int) Math.floor(Mouse.getX() / 64), (int) Math.floor((HEIGHT - Mouse.getY() - 1)/ 64), types[index]);
-	}
+	
 	
 	public void update(){
 		
@@ -64,10 +61,4 @@ public class Player {
 		}
 	}
 	
-	private void moveIndex(){
-		index++;
-		if(index > types.length - 1){
-			index = 0;
-		}
-	}
 }
