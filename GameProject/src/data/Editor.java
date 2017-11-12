@@ -38,7 +38,7 @@ public class Editor {
 			}
 			//save
 			if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
-				saveMap("testMap", grid);
+				saveMap("newMap1", grid);
 			}
 
 		}
