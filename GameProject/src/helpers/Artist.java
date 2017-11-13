@@ -69,6 +69,14 @@ public class Artist {
 		glLoadIdentity();//stops continues drawing?
 	}
 	
+	public static boolean checkCollision(float x1, float y1, float width1, float height1,
+			float x2, float y2, float width2, float height2){
+		if(x1 + width1 > x2 && x1 < x2 + width2 && y1 + height1 > y2 && y1 < y2 + height2){
+			return true;
+		}
+		return false;
+	}
+	
 	public static void drawQuadTexRot(Texture tex, float x, float y, float width, float height, float angle){
 		tex.bind();//all drawing will be filled with this texture until replaced by another texture
 		glTranslatef(x + width / 2, y + height / 2, 0);//translate to the center of the tile
