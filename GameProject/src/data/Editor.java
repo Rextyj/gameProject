@@ -9,7 +9,7 @@ import org.lwjgl.input.Mouse;
 
 import helpers.Clock;
 
-public class Editor {
+public class Editor{
 	
 	private TileGrid grid;
 	private int index;

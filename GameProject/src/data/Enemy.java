@@ -6,7 +6,7 @@ import helpers.Artist;
 import static helpers.Clock.*;
 import java.util.ArrayList;
 
-public class Enemy {
+public class Enemy implements Entity{
 	//same as tile, x, y are already inverted
 	private int width, height, health, currentCheckPoint;
 	private float speed, x, y;
