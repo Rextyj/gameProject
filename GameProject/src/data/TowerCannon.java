@@ -12,14 +12,16 @@ import org.newdawn.slick.opengl.Texture;
 public class TowerCannon {
 	
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
+	private double range;
 	private int width, height, damage;
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Enemy> enemies;
 	private Enemy target;
+	private boolean hasTarget;
 	
-	public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies){
+	public TowerCannon(Texture baseTexture, Tile startTile, int damage, double range, ArrayList<Enemy> enemies){
 		this.baseTexture = baseTexture;
 		this.cannonTexture = quickLoad("cannonGun");
 		this.startTile = startTile;
@@ -28,16 +30,47 @@ public class TowerCannon {
 		this.width = (int) startTile.getWidth();
 		this.height = (int) startTile.getHeight();
 		this.damage = damage;
-		firingSpeed = 3;
+		firingSpeed = 1;
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 		this.enemies = enemies;
-		this.target = aquireTarget();
-		this.angle = calculateAngle();
+//		this.target = aquireTarget();
+//		this.angle = calculateAngle();
+		this.range = range;
+		this.hasTarget = false;
 	}
 	
 	private Enemy aquireTarget(){
-		return enemies.get(0);//temporarily set to the first 
+		Enemy closest = null;
+		double closestDistance = 10000;
+		for(Enemy e : enemies) {
+			if(isInRange(e) && findDistance(e) < closestDistance){
+				closestDistance = findDistance(e);
+				closest = e;
+			}
+		}
+		if(closest != null){
+			hasTarget = true;
+		}
+		
+		return closest;
+	}
+	
+	private boolean isInRange(Enemy e){
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		double radiusDistance =  Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+		if(radiusDistance <= range){
+			return true;
+		}
+		return false;
+	}
+	
+	private double findDistance(Enemy e){
+		float xDistance = Math.abs(e.getX() - x);
+		float yDistance = Math.abs(e.getY() - y);
+		double radiusDistance =  Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+		return radiusDistance;
 	}
 	
 	private float calculateAngle(){
@@ -48,19 +81,32 @@ public class TowerCannon {
 	private void shoot(){
 		timeSinceLastShot = 0;
 		//projectile texture is size 32 so we need to move back 16 in both direction
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32, 32, 150, 10));
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32, 32, 500, 10));
+	}
+	
+	public void updateEnemyList(ArrayList<Enemy> newList){
+		enemies = newList;
 	}
 	
 	public void update(){
-		timeSinceLastShot += delta();
-		if(timeSinceLastShot > firingSpeed){
-			shoot();
+		if(!hasTarget){
+			target = aquireTarget();
+		}else {
+			timeSinceLastShot += delta();
+			if(timeSinceLastShot > firingSpeed){
+				shoot();
+			}
+
+			for(Projectile p : projectiles){
+				p.update();
+			}
+			angle = calculateAngle();
+			
 		}
 		
-		for(Projectile p : projectiles){
-			p.update();
-		}
-		angle = calculateAngle();
+		if(target == null || target.isAlive() == false || !isInRange(target)){
+			hasTarget = false;
+		} 
 		draw();
 	}
 	

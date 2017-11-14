@@ -29,19 +29,19 @@ public class Player {
 		this.towerList = new ArrayList<TowerCannon> ();
 		this.leftMoustButtonDown = false;
 	}
-	
-	
+
 	
 	public void update(){
 		
 		for(TowerCannon t : towerList){
 			t.update();
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 		
 		//mouse
 		if(Mouse.isButtonDown(0) && !leftMoustButtonDown){//0 is for left button, 1 right
 		
-			towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1)/ 64), 10, waveManager.getCurrentWave().getEnemyList()));
+			towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1)/ 64), 10, 500, waveManager.getCurrentWave().getEnemyList()));
 //			setTile();
 		}
 		leftMoustButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
@@ -56,7 +56,7 @@ public class Player {
 			}
 			
 			if(Keyboard.getEventKey() == Keyboard.KEY_T && Keyboard.getEventKeyState()){
-				towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(9, 9), 10, waveManager.getCurrentWave().getEnemyList()));
+				towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(9, 9), 10, 500, waveManager.getCurrentWave().getEnemyList()));
 			}
 		}
 	}
