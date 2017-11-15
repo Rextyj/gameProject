@@ -1,6 +1,7 @@
 package data;
 
-import static helpers.Artist.*;
+import static helpers.Artist.TILE_SIZE;
+
 public class TileGrid {
 	
 	public Tile[][] map;
@@ -12,7 +13,7 @@ public class TileGrid {
 		map = new Tile[20][15];
 		for(int i =0; i < map.length; i++){
 			for(int j = 0; j < map[i].length; j++){
-				map[i][j] = new Tile(i*64, j*64, 64,64, TileType.Grass);//the coordinate system in opengl
+				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Grass);//the coordinate system in opengl
 				//uses column number for x instead of y
 				//in Java, [10][5] means 10 rows and 5 columns
 				//but the glTranslatef sees x as the column number, thus would need to be
@@ -30,13 +31,13 @@ public class TileGrid {
 				
 				switch(newMap[j][i]) {//the Java array x and y are swapped comparing to the coordinate system we use
 				case 0:
-					map[i][j] = new Tile(i*64, j*64, 64,64, TileType.Grass);
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Grass);
 					break;
 				case 1:
-					map[i][j] = new Tile(i*64, j*64, 64,64, TileType.Dirt);
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Dirt);
 					break;
 				case 2:
-					map[i][j] = new Tile(i*64, j*64, 64,64, TileType.Water);
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Water);
 					break;
 				}
 			}
@@ -44,7 +45,7 @@ public class TileGrid {
 	}
 	
 	public void setTile(int xCoord, int yCoord, TileType type){
-		map[xCoord][yCoord] = new Tile(xCoord*64, yCoord*64, 64, 64, type);//remember the input argument does not match the coordinate system of Java
+		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);//remember the input argument does not match the coordinate system of Java
 	}
 	
 	public Tile getTile(int xPlace, int yPlace){//input the coor according to our coordinate sys

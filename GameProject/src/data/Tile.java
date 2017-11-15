@@ -28,11 +28,11 @@ public class Tile {
 	}
 	
 	public int getXPlace(){
-		return (int) x / 64;
+		return (int) x / TILE_SIZE;
 	}
 	
 	public int getYPlace(){
-		return (int) y / 64;
+		return (int) y / TILE_SIZE;
 	}
 	
 	public void setX(float x) {

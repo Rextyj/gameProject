@@ -1,7 +1,6 @@
 package data;
 
 import static helpers.Artist.beginSession;
-import static helpers.Artist.quickLoad;
 
 import org.lwjgl.opengl.Display;
 

@@ -1,8 +1,12 @@
 package data;
 
+import static helpers.Artist.checkCollision;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Clock.delta;
+
 import org.newdawn.slick.opengl.Texture;
-import static helpers.Clock.*;
-import static helpers.Artist.*;
+
+import helpers.Artist;
 
 public class Projectile {
 	private Texture texture;
@@ -30,17 +34,17 @@ public class Projectile {
 	private void calculateDirection() {
 		float totalAllowedMovement = 1.0f;
 		// plus 32 because we want to aim at the center
-		float xDistanceFromTarget = Math.abs(target.getX() + Game.TILE_SIZE / 2 - (x + Game.TILE_SIZE / 4));
-		float yDistanceFromTarget = Math.abs(target.getY() + Game.TILE_SIZE / 2 - (y + Game.TILE_SIZE / 4));
+		float xDistanceFromTarget = Math.abs(target.getX() + Artist.TILE_SIZE / 2 - (x + Artist.TILE_SIZE / 4));
+		float yDistanceFromTarget = Math.abs(target.getY() + Artist.TILE_SIZE / 2 - (y + Artist.TILE_SIZE / 4));
 		float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;
 		yVelocity = totalAllowedMovement - xPercentOfMovement;
 
-		if (target.getX() + Game.TILE_SIZE / 2 < x + Game.TILE_SIZE / 4) {
+		if (target.getX() + Artist.TILE_SIZE / 2 < x + Artist.TILE_SIZE / 4) {
 			xVelocity *= -1;
 		}
-		if (target.getY() + Game.TILE_SIZE / 2 < y + Game.TILE_SIZE / 4) {
+		if (target.getY() + Artist.TILE_SIZE / 2 < y + Artist.TILE_SIZE / 4) {
 			yVelocity *= -1;
 		}
 	}

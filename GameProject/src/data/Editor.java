@@ -1,13 +1,11 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
-import static helpers.Artist.quickLoad;
-import static helpers.LevelDesign.*;
+import static helpers.Artist.TILE_SIZE;
+import static helpers.LevelDesign.saveMap;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
-import helpers.Clock;
 
 public class Editor{
 	
@@ -46,7 +44,7 @@ public class Editor{
 	
 	private void setTile(){
 		
-		grid.setTile((int) Math.floor(Mouse.getX() / 64), (int) Math.floor((HEIGHT - Mouse.getY() - 1)/ 64), types[index]);
+		grid.setTile((int) Math.floor(Mouse.getX() / TILE_SIZE), (int) Math.floor((HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), types[index]);
 	}
 	
 	private void moveIndex(){

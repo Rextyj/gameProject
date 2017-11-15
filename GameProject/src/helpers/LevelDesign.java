@@ -42,6 +42,7 @@ public class LevelDesign {
 					grid.setTile(i, j, getTileType(data.substring(i * grid.getTilesHigh() + j,i * grid.getTilesHigh() + j + 1)));
 				}
 			}
+			br.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
