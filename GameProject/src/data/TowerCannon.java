@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
+import helpers.Artist;
+
 public class TowerCannon {
 	
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
@@ -44,6 +46,9 @@ public class TowerCannon {
 		Enemy closest = null;
 		double closestDistance = 10000;
 		for(Enemy e : enemies) {
+			if(!e.isAlive()){
+				continue;
+			}
 			if(isInRange(e) && findDistance(e) < closestDistance){
 				closestDistance = findDistance(e);
 				closest = e;
@@ -81,7 +86,7 @@ public class TowerCannon {
 	private void shoot(){
 		timeSinceLastShot = 0;
 		//projectile texture is size 32 so we need to move back 16 in both direction
-		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32, 32, 500, 10));
+		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, y + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, 32, 32, 500, 10));
 	}
 	
 	public void updateEnemyList(ArrayList<Enemy> newList){
@@ -89,9 +94,13 @@ public class TowerCannon {
 	}
 	
 	public void update(){
+		if(target == null || target.isAlive() == false || !isInRange(target)){
+			hasTarget = false;
+		} 
+		
 		if(!hasTarget){
 			target = aquireTarget();
-		}else {
+		} else {
 			timeSinceLastShot += delta();
 			if(timeSinceLastShot > firingSpeed){
 				shoot();
@@ -104,9 +113,7 @@ public class TowerCannon {
 			
 		}
 		
-		if(target == null || target.isAlive() == false || !isInRange(target)){
-			hasTarget = false;
-		} 
+		
 		draw();
 	}
 	
