@@ -16,7 +16,7 @@ public class Player {
 	private TileGrid grid;
 	private TileType[] types;
 	private WaveManager waveManager;
-	private ArrayList<TowerCannon> towerList;
+	private ArrayList<Tower> towerList;
 	private boolean leftMoustButtonDown;
 	
 	public Player(TileGrid grid, WaveManager waveManager){
@@ -26,23 +26,23 @@ public class Player {
 		this.types[1] = TileType.Dirt;
 		this.types[2] = TileType.Water;
 		this.waveManager = waveManager;
-		this.towerList = new ArrayList<TowerCannon> ();
+		this.towerList = new ArrayList<Tower> ();
 		this.leftMoustButtonDown = false;
 	}
 
 	
 	public void update(){
 		
-		for(TowerCannon t : towerList){
+		for(Tower t : towerList){
 			t.update();
-			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+			t.draw();
+			//t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 		
 		//mouse
 		if(Mouse.isButtonDown(0) && !leftMoustButtonDown){//0 is for left button, 1 right
 		
-			towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), 10, 500, waveManager.getCurrentWave().getEnemyList()));
-//			setTile();
+			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE)));
 		}
 		leftMoustButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
 		
@@ -55,9 +55,6 @@ public class Player {
 				Clock.changeMultiplier(-0.2f);//slow down
 			}
 			
-			if(Keyboard.getEventKey() == Keyboard.KEY_T && Keyboard.getEventKeyState()){
-				towerList.add(new TowerCannon(quickLoad("cannonBase"), grid.getTile(9, 9), 10, 500, waveManager.getCurrentWave().getEnemyList()));
-			}
 		}
 	}
 	

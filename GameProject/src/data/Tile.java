@@ -6,11 +6,12 @@ import static helpers.Artist.*;
 public class Tile {
 	//tile's x and y are for col num and row num respectively
 	//i.e already inverted when created
-	private float x, y, width, height;
+	private float x, y;
+	private int width, height;
 	private Texture texture;
 	private TileType type;
 	
-	public Tile(float x, float y, float width, float height, TileType type){
+	public Tile(float x, float y, int width, int height, TileType type){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -47,19 +48,19 @@ public class Tile {
 		this.y = y;
 	}
 
-	public float getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(float width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 
-	public float getHeight() {
+	public int getHeight() {
 		return height;
 	}
 
-	public void setHeight(float height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 
