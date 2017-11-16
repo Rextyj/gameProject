@@ -17,7 +17,7 @@ public class Player {
 	private TileType[] types;
 	private WaveManager waveManager;
 	private ArrayList<Tower> towerList;
-	private boolean leftMoustButtonDown;
+	private boolean leftMouseButtonDown, rightMouseButtonDown;
 	
 	public Player(TileGrid grid, WaveManager waveManager){
 		this.grid = grid;
@@ -27,7 +27,8 @@ public class Player {
 		this.types[2] = TileType.Water;
 		this.waveManager = waveManager;
 		this.towerList = new ArrayList<Tower> ();
-		this.leftMoustButtonDown = false;
+		this.leftMouseButtonDown = false;
+		this.rightMouseButtonDown = false;
 	}
 
 	
@@ -36,15 +37,24 @@ public class Player {
 		for(Tower t : towerList){
 			t.update();
 			t.draw();
-			//t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 		
 		//mouse
-		if(Mouse.isButtonDown(0) && !leftMoustButtonDown){//0 is for left button, 1 right
+		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
 		
-			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE)));
+			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
 		}
-		leftMoustButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
+		
+		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){//0 is for left button, 1 right
+			
+			towerList.add(new TowerCannonBlue(TowerType.RedCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+		}
+		
+		//this is very important, otherwise, there will be more than one tower placed at the same position
+		leftMouseButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
+		rightMouseButtonDown = Mouse.isButtonDown(1);
+		
 		
 		//keyboard input
 		while(Keyboard.next()){
