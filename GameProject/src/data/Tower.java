@@ -78,7 +78,7 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;//
 	}
 	
-	private void shoot(){
+	public void shoot(){
 		timeSinceLastShot = 0;
 		//projectile texture is size 32 so we need to move back 16 in both direction
 		projectiles.add(new Projectile(quickLoad("bullet"), target, x + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, y + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, 32, 32, 500, damage));
@@ -165,6 +165,47 @@ public abstract class Tower implements Entity {
 		
 	}
 
+	public Enemy getTarget() {
+		return target;
+	}
+
+	public float getTimeSinceLastShot() {
+		return timeSinceLastShot;
+	}
+
+	public float getFiringSpeed() {
+		return firingSpeed;
+	}
+
+	public float getAngle() {
+		return angle;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public Texture[] getTextures() {
+		return textures;
+	}
+
+	public ArrayList<Enemy> getEnemies() {
+		return enemies;
+	}
+
+	public boolean isHasTarget() {
+		return hasTarget;
+	}
+
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
+	}
+
+	
 	
 
 }

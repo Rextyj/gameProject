@@ -41,9 +41,14 @@ public class Player {
 		}
 		
 		//mouse
-		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
+//		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
+//		
+//			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+//		}
 		
-			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
+			
+			towerList.add(new TowerIce(TowerType.IceCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
 		}
 		
 		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){//0 is for left button, 1 right
