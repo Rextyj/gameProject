@@ -8,7 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import helpers.Artist;
 
-public class Projectile implements Entity{
+public abstract class Projectile implements Entity{
 	private Texture texture;
 	private float x, y, speed, xVelocity, yVelocity;
 	private int damage, width, height;
@@ -48,17 +48,21 @@ public class Projectile implements Entity{
 			yVelocity *= -1;
 		}
 	}
-
+	
+	public void damage(){
+		target.getDamaged(damage);//does damage to the target 
+		alive = false;//set the projectile to dead so it won't get updated 
+	}
+	
 	public void update() {
 		if (alive) {
-			calculateDirection();// so the projectile will follow the target
+//			calculateDirection();// so the projectile will follow the target
 									// even if the bullet is slow
 			x += xVelocity * speed * delta();
 			y += yVelocity * speed * delta();
 			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
 					target.getHeight())) {
-				target.getDamaged(damage);
-				alive = false;
+				damage();
 			}
 
 			draw();
@@ -112,4 +116,38 @@ public class Projectile implements Entity{
 		this.height = height;
 		
 	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
+	public float getxVelocity() {
+		return xVelocity;
+	}
+
+	public float getyVelocity() {
+		return yVelocity;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public Enemy getTarget() {
+		return target;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+	
+	
 }

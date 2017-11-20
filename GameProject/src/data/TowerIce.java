@@ -9,11 +9,6 @@ public class TowerIce extends Tower{
 		super(type, startTile, enemies);
 	}
 	
-	@Override
-	public void shoot(){
-		super.shoot();
-		super.getTarget().setSpeed(4);//adding slowing effect
-	}
 	
 	@Override
 	public void draw(){
