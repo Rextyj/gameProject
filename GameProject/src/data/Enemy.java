@@ -2,15 +2,15 @@ package data;
 
 import org.newdawn.slick.opengl.Texture;
 
-import helpers.Artist;
+import static helpers.Artist.*;
 import static helpers.Clock.*;
 import java.util.ArrayList;
 
 public class Enemy implements Entity{
 	//same as tile, x, y are already inverted
-	private int width, height, health, currentCheckPoint;
-	private float speed, x, y;
-	private Texture texture;
+	private int width, height, currentCheckPoint;
+	private float speed, x, y, health, startHealth;
+	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
 	private boolean first = true, alive = true;
 	private TileGrid grid;
@@ -18,15 +18,19 @@ public class Enemy implements Entity{
 	private ArrayList<CheckPoint> checkpoints;
 	private int[] directions;
 	
-	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, int health){
+	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health){
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.startTile = startTile;
 		this.texture = texture;
+		this.healthBackground = quickLoad("healthBarBackground");
+		this.healthForeground = quickLoad("healthBarForeground");
+		this.healthBorder = quickLoad("healthBarBorder");
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
 		this.health = health;
+		this.startHealth = health;
 		this.grid = grid;
 		
 		this.checkpoints = new ArrayList<CheckPoint> ();
@@ -181,7 +185,11 @@ public class Enemy implements Entity{
 	}
 	
 	public void draw(){
-		Artist.drawQuadTex(texture, x, y, width, height);
+		float healthPercent = health / startHealth;
+		drawQuadTex(texture, x, y, width, height);
+		drawQuadTex(healthBackground, x, y - 16, width, 8);
+		drawQuadTex(healthForeground, x, y - 16, TILE_SIZE * healthPercent, 8);
+		drawQuadTex(healthBorder, x, y - 16, width, 8);
 	}
 
 	public int getWidth() {
@@ -200,7 +208,7 @@ public class Enemy implements Entity{
 		this.height = height;
 	}
 
-	public int getHealth() {
+	public float getHealth() {
 		return health;
 	}
 
