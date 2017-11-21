@@ -50,7 +50,10 @@ public abstract class Projectile implements Entity{
 	}
 	
 	public void damage(){
-		target.getDamaged(damage);//does damage to the target 
+		//this prevents the coins from increasing after the target is dead but the projectile is still flying
+		if(target.isAlive()){
+			target.getDamaged(damage);//does damage to the target 
+		}
 		alive = false;//set the projectile to dead so it won't get updated 
 	}
 	
@@ -62,7 +65,7 @@ public abstract class Projectile implements Entity{
 			y += yVelocity * speed * delta();
 			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
 					target.getHeight())) {
-				damage();
+					damage();	
 			}
 
 			draw();

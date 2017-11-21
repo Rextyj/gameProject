@@ -17,6 +17,7 @@ public class Game {
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, TILE_SIZE, TILE_SIZE, 40, 25),
 					2, 5);
 		player = new Player(grid, waveManager);
+		player.setup();
 	}
 	
 	public void update(){

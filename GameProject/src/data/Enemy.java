@@ -94,7 +94,7 @@ public class Enemy implements Entity{
 			if(checkPointReached()){
 //				System.out.println("increment");
 				if(currentCheckPoint + 1 == checkpoints.size()){
-					die();
+					endOfMazeReached();
 				} else {
 					currentCheckPoint++;
 				}
@@ -106,6 +106,11 @@ public class Enemy implements Entity{
 			}
 		}
 		
+	}
+	
+	private  void endOfMazeReached(){
+		Player.modifyLives(-1);
+		die();
 	}
 	
 	private CheckPoint findNextC(Tile s, int[] dir){
@@ -176,6 +181,7 @@ public class Enemy implements Entity{
 		health -= amount;
 		if(health <= 0){
 			die();
+			Player.modifyCoins(10);//add 10 coins killing an enemy
 		}
 	}
 	
