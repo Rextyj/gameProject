@@ -1,11 +1,12 @@
 package data;
 
-import java.util.ArrayList;
 import static helpers.Artist.drawQuadTex;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TowerIce extends Tower{
 
-	public TowerIce(TowerType type, Tile startTile, ArrayList<Enemy> enemies) {
+	public TowerIce(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
 		super(type, startTile, enemies);
 	}
 	

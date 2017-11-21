@@ -1,15 +1,16 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-
-import helpers.Artist;
-
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawQuadTexRot;
 import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.newdawn.slick.opengl.Texture;
+
+import helpers.Artist;
 
 public abstract class Tower implements Entity {
 
@@ -17,11 +18,11 @@ public abstract class Tower implements Entity {
 	private int width, height, damage, range;
 	private Enemy target;
 	private Texture[] textures;
-	private ArrayList<Enemy> enemies;
+	private CopyOnWriteArrayList<Enemy> enemies;
 	private boolean hasTarget;
 	private ArrayList<Projectile> projectiles;
 	
-	public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemies){
+	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies){
 		this.textures = type.textures;
 		this.damage = type.damage;
 		this.range = type.range;
@@ -84,7 +85,7 @@ public abstract class Tower implements Entity {
 		projectiles.add(new ProjectileIce(quickLoad("iceBullet"), target, x + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, y + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, 32, 32, 500, damage));
 	}
 	
-	public void updateEnemyList(ArrayList<Enemy> newList){
+	public void updateEnemyList(CopyOnWriteArrayList<Enemy> newList){
 		enemies = newList;
 	}
 	
@@ -193,7 +194,7 @@ public abstract class Tower implements Entity {
 		return textures;
 	}
 
-	public ArrayList<Enemy> getEnemies() {
+	public CopyOnWriteArrayList<Enemy> getEnemies() {
 		return enemies;
 	}
 

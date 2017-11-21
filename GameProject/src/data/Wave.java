@@ -4,12 +4,13 @@ import static helpers.Clock.delta;
 import static helpers.Artist.TILE_SIZE;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Wave {
 
 	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
-	private ArrayList<Enemy> enemyList;
+	private CopyOnWriteArrayList<Enemy> enemyList;
 	private int enemiesPerWave;
 	private boolean waveCompleted;
 	
@@ -18,7 +19,7 @@ public class Wave {
 		this.spawnTime = spawnTime;
 		this.enemiesPerWave = enemiesPerWave;
 		this.timeSinceLastSpawn = 0;
-		this.enemyList = new ArrayList<Enemy>();
+		this.enemyList = new CopyOnWriteArrayList<Enemy>();
 		this.waveCompleted = false;
 		
 		spawn();//spawn the first enemy when program started
@@ -40,6 +41,11 @@ public class Wave {
 				allEnemiesDead = false;
 				e.update();
 				e.draw();
+			} else {
+				//remove dead enemies
+				enemyList.remove(e);
+				//but, if we use arraylist, there will be concurrent writing error
+				//so we use copyonwritearraylist
 			}
 		}
 		
@@ -57,7 +63,7 @@ public class Wave {
 		return waveCompleted;
 	}
 
-	public ArrayList<Enemy> getEnemyList() {
+	public CopyOnWriteArrayList<Enemy> getEnemyList() {
 		return enemyList;
 	}
 	
