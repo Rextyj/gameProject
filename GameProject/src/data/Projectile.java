@@ -15,15 +15,14 @@ public abstract class Projectile implements Entity{
 	private Enemy target;
 	private boolean alive;
 
-	public Projectile(Texture texture, Enemy target, float x, float y, int width, int height, float speed,
-			int damage) {
-		this.texture = texture;
+	public Projectile(ProjectileType type, Enemy target, float x, float y, int width, int height) {
+		this.texture = type.texture;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.speed = speed;
-		this.damage = damage;
+		this.speed = type.speed;
+		this.damage = type.damage;
 		this.target = target;
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;

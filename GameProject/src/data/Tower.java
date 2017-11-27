@@ -16,11 +16,12 @@ public abstract class Tower implements Entity {
 
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
 	private int width, height, damage, range;
-	private Enemy target;
+	public Enemy target;
 	private Texture[] textures;
 	private CopyOnWriteArrayList<Enemy> enemies;
 	private boolean hasTarget;
-	private ArrayList<Projectile> projectiles;
+	public ArrayList<Projectile> projectiles;
+	public TowerType type;
 	
 	public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies){
 		this.textures = type.textures;
@@ -36,6 +37,7 @@ public abstract class Tower implements Entity {
 		this.projectiles = new ArrayList<Projectile>();
 		this.firingSpeed = type.firingSpeed;
 		this.angle = 0f;
+		this.type = type;
 	}
 	
 	private Enemy aquireTarget(){
@@ -79,11 +81,11 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;//
 	}
 	
-	public void shoot(){
-		timeSinceLastShot = 0;
-		//projectile texture is size 32 so we need to move back 16 in both direction
-		projectiles.add(new ProjectileIce(quickLoad("iceBullet"), target, x + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, y + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, 32, 32, 500, damage));
-	}
+	public abstract void shoot(Enemy target);
+//		timeSinceLastShot = 0;
+//		//projectile texture is size 32 so we need to move back 16 in both direction
+//		projectiles.add(new ProjectileIce(quickLoad("iceBullet"), target, x + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, y + Artist.TILE_SIZE / 2 - Artist.TILE_SIZE / 4, 32, 32, 500, damage));
+	
 	
 	public void updateEnemyList(CopyOnWriteArrayList<Enemy> newList){
 		enemies = newList;
@@ -100,7 +102,8 @@ public abstract class Tower implements Entity {
 		} else {
 			timeSinceLastShot += delta();
 			if(timeSinceLastShot > firingSpeed){
-				shoot();
+				shoot(target);
+				timeSinceLastShot = 0;
 			}
 
 			for(Projectile p : projectiles){
@@ -112,6 +115,7 @@ public abstract class Tower implements Entity {
 	}
 
 	@Override
+	//this draw method was stripped from update method
 	public void draw() {
 		drawQuadTex(textures[0], x, y, width, height);
 		if(textures.length > 0){
