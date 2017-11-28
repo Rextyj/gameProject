@@ -22,6 +22,7 @@ public class WaveManager {
 		if(!currentWave.isCompleted()){
 			currentWave.update();
 		} else {
+//			System.out.println("New Wave");
 			newWave();
 		}
 		

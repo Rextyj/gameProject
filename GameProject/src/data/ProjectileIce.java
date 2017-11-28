@@ -1,7 +1,5 @@
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-
 public class ProjectileIce extends Projectile{
 	
 	public ProjectileIce(ProjectileType type, Enemy target, float x, float y, int width, int height) {

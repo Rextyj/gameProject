@@ -1,9 +1,8 @@
 package data;
 
-import static helpers.Clock.delta;
 import static helpers.Artist.TILE_SIZE;
+import static helpers.Clock.delta;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Wave {
@@ -27,7 +26,6 @@ public class Wave {
 	}
 
 	public void update() {
-		boolean allEnemiesDead = true;
 		//continue spawning until reaching the number required
 		if(enemiesSpawned < enemiesPerWave){
 			timeSinceLastSpawn += delta();
@@ -39,7 +37,6 @@ public class Wave {
 		
 		for (Enemy e : enemyList) {
 			if (e.isAlive()) {
-				allEnemiesDead = false;
 				e.update();
 				e.draw();
 			} else {
@@ -50,7 +47,7 @@ public class Wave {
 			}
 		}
 		
-		if(allEnemiesDead){
+		if(enemyList.isEmpty()){
 			waveCompleted = true;
 		}
 	}

@@ -11,23 +11,19 @@ public class Boot {
 	
 	public Boot() {
 		
+		//call artist class method to initialize OpenGL calls
 		beginSession();
 		
-		
-		
-//		Game game = new Game(map);
-		//keep the display open until close is requested
+		//Main game loop
 		while(!Display.isCloseRequested()){//keep running until hitting x
 			Clock.update();
-			
-//			game.update();
 			StateManager.update();
-		    
 		    Display.update();
 			Display.sync(60);
 		}
 		
-		Display.destroy();//end the game
+		//end the game
+		Display.destroy();
 	}
 	public static void main(String[] args) {
 		new Boot();

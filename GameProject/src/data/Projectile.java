@@ -39,7 +39,9 @@ public abstract class Projectile implements Entity{
 		float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 		xVelocity = xPercentOfMovement;
 		yVelocity = totalAllowedMovement - xPercentOfMovement;
-
+		
+		
+		//velocity is set based on the relative position from the target to the projectile
 		if (target.getX() + Artist.TILE_SIZE / 2 < x + Artist.TILE_SIZE / 4) {
 			xVelocity *= -1;
 		}
@@ -48,6 +50,7 @@ public abstract class Projectile implements Entity{
 		}
 	}
 	
+	//does damage to the enemy
 	public void damage(){
 		//this prevents the coins from increasing after the target is dead but the projectile is still flying
 		if(target.isAlive()){

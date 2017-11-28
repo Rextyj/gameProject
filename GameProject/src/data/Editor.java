@@ -14,7 +14,7 @@ public class Editor{
 	private TileType[] types;
 	
 	public Editor(){
-		grid = new TileGrid();
+		this.grid = new TileGrid();
 		this.index = 0;
 		this.types = new TileType[3];
 		this.types[0] = TileType.Grass;
@@ -47,6 +47,8 @@ public class Editor{
 		grid.setTile((int) Math.floor(Mouse.getX() / TILE_SIZE), (int) Math.floor((HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), types[index]);
 	}
 	
+	//Change the TileType selected
+	//called in the update method
 	private void moveIndex(){
 		index++;
 		if(index > types.length - 1){

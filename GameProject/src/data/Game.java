@@ -13,7 +13,7 @@ public class Game {
 	
 	public Game(int[][] map){
 		grid = new TileGrid(map);
-		
+		//create a wavemanager and add the ufo type enemy wave to the manager
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, TILE_SIZE, TILE_SIZE, 40, 25),
 					2, 2);
 		player = new Player(grid, waveManager);

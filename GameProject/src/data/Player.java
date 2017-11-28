@@ -2,7 +2,6 @@ package data;
 
 import static helpers.Artist.HEIGHT;
 import static helpers.Artist.TILE_SIZE;
-import static helpers.Artist.quickLoad;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,8 @@ public class Player {
 		coins = 0;
 		lives = 0;
 	}
-
+	
+	//start lives and money
 	public void setup(){
 		coins = 100;
 		lives = 10;
@@ -55,7 +55,7 @@ public class Player {
 	}
 	
 	public void update(){
-		
+		//loop through all the towers and update
 		for(Tower t : towerList){
 			t.update();
 			t.draw();
@@ -63,11 +63,6 @@ public class Player {
 		}
 		
 		//mouse
-//		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
-//		
-//			towerList.add(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-//		}
-		
 		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
 			if(modifyCoins(-20)){
 				towerList.add(new TowerIce(TowerType.IceCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
@@ -83,7 +78,9 @@ public class Player {
 		}
 		
 		//this is very important, otherwise, there will be more than one tower placed at the same position
-		leftMouseButtonDown = Mouse.isButtonDown(0);//execute the update method only once per click
+		//execute the update method only once per click, because the mouseButtonDown flag will stay true until
+		//the button is released.
+		leftMouseButtonDown = Mouse.isButtonDown(0);
 		rightMouseButtonDown = Mouse.isButtonDown(1);
 		
 		

@@ -12,7 +12,7 @@ public class Enemy implements Entity{
 	private float speed, x, y, health, startHealth;
 	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
-	private boolean first = true, alive = true;
+	private boolean first, alive;
 	private TileGrid grid;
 	
 	private ArrayList<CheckPoint> checkpoints;
@@ -32,22 +32,27 @@ public class Enemy implements Entity{
 		this.health = health;
 		this.startHealth = health;
 		this.grid = grid;
+		this.first = true;
+		this.alive = true;
 		
 		this.checkpoints = new ArrayList<CheckPoint> ();
 		//index 0 is x, 1 is y
 		this.directions = new int[2];
+		
 		directions = findNextD(startTile);
 		this.currentCheckPoint = 0;
 		populateCheckPointList();
 	}
 	
 	private void populateCheckPointList(){
+		//Add the first checkpoint manually
 		checkpoints.add(findNextC(startTile, directions = findNextD(startTile)));
 		
 		int counter = 0;
 		boolean cont = true;
 		while(cont){
 			int[] currentD = findNextD(checkpoints.get(counter).getTile());
+			//check if there is a next direction and the number of checkpoints reaches 21 (arbitrary ?)
 			if(currentD[0] == 2 || counter == 20){
 				cont = false;
 			} else {
@@ -57,10 +62,6 @@ public class Enemy implements Entity{
 			}
 			
 		}
-		
-//		for(CheckPoint c : checkpoints){
-//			System.out.println("" + c.getxDirection() + c.getyDirection());
-//		}
 		
 	}
 	
@@ -84,30 +85,28 @@ public class Enemy implements Entity{
 	}
 	
 	public void update(){
-		if(first){
+		//do nothing if the class is being updated for the first time
+		//this prevents the enemy from jumping ahead due to the amount of time used to set up
+		if(first) {
 			first = false;
 		} else {
-//			if(pathContinues()){
-//				x += delta() * speed;//the booting of the game will result in a very large delta
-//				//we want to skip the first update
-//			}
 			if(checkPointReached()){
-//				System.out.println("increment");
+				//check if there is more check points ahead
 				if(currentCheckPoint + 1 == checkpoints.size()){
 					endOfMazeReached();
 				} else {
 					currentCheckPoint++;
-				}
-				
-			} 
-			else {
+				}				
+			} else {
+				//if it hasn't reached a checkpoint, continue in the current direction
 				x += delta() * checkpoints.get(currentCheckPoint).getxDirection() * speed;
 				y += delta() * checkpoints.get(currentCheckPoint).getyDirection() * speed;
 			}
 		}
-		
 	}
 	
+	
+	//run if the enemy has reached the end of the maze
 	private  void endOfMazeReached(){
 		Player.modifyLives(-1);
 		die();
@@ -145,7 +144,9 @@ public class Enemy implements Entity{
 		Tile d = grid.getTile(s.getXPlace(), s.getYPlace() + 1);
 		Tile l = grid.getTile(s.getXPlace() - 1, s.getYPlace());
 		
-		if(s.getType() == u.getType() && directions[1] != 1){//second condition stops the enemy from moving backwards
+		//check if the current tile is the same type as the next tile (above, right, down, left)
+		//second condition stops the enemy from moving backwards
+		if(s.getType() == u.getType() && directions[1] != 1){
 			dir[0] = 0;
 			dir[1] = -1;
 		} else if(s.getType() == r.getType() && directions[0] != -1){
@@ -160,28 +161,18 @@ public class Enemy implements Entity{
 		} else {
 			dir[0] = 2;
 			dir[1] = 2;
-//			System.out.println("No Way");
 		}
 		return dir;
 	}
 	
-//	private boolean pathContinues(){
-//		boolean answer = true;
-//		Tile myTile = grid.getTile((int) (x / 64), (int) (y / 64));
-//		Tile nextTile = grid.getTile((int) (x / 64) + 1, (int) (y / 64));
-//		
-//		if(myTile.getType() != nextTile.getType()){
-//			answer = false;
-//		}
-//		
-//		return answer;
-//	}
 	
+	//take damage (called from external class)
 	public void getDamaged(int amount) {
 		health -= amount;
 		if(health <= 0){
 			die();
-			Player.modifyCoins(10);//add 10 coins killing an enemy
+			//add 10 coins killing an enemy
+			Player.modifyCoins(10);
 		}
 	}
 	
@@ -192,7 +183,9 @@ public class Enemy implements Entity{
 	
 	public void draw(){
 		float healthPercent = health / startHealth;
+		//Enemy tex
 		drawQuadTex(texture, x, y, width, height);
+		//health bar tex
 		drawQuadTex(healthBackground, x, y - 16, width, 8);
 		drawQuadTex(healthForeground, x, y - 16, TILE_SIZE * healthPercent, 8);
 		drawQuadTex(healthBorder, x, y - 16, width, 8);

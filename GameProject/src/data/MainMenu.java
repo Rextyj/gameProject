@@ -22,6 +22,8 @@ public class MainMenu {
 		
 	}
 	
+	
+	//Execute the actions if user clicked the button
 	private void updateButtons(){
 		if(Mouse.isButtonDown(0)){
 			if(menuUI.isButtonClicked("Play")){

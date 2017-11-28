@@ -2,15 +2,12 @@ package data;
 
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawQuadTexRot;
-import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.opengl.Texture;
-
-import helpers.Artist;
 
 public abstract class Tower implements Entity {
 
@@ -42,7 +39,8 @@ public abstract class Tower implements Entity {
 	
 	private Enemy aquireTarget(){
 		Enemy closest = null;
-		double closestDistance = 10000;
+		double closestDistance = Integer.MAX_VALUE;
+		//return the nearest enemy in the enemy list that is alive
 		for(Enemy e : enemies) {
 			if(!e.isAlive()){
 				continue;
@@ -81,6 +79,7 @@ public abstract class Tower implements Entity {
 		return (float) Math.toDegrees(angleTemp) - 90;//
 	}
 	
+	//Must be overridden in subclasses
 	public abstract void shoot(Enemy target);
 //		timeSinceLastShot = 0;
 //		//projectile texture is size 32 so we need to move back 16 in both direction

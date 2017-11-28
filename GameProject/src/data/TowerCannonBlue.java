@@ -12,7 +12,5 @@ public class TowerCannonBlue extends Tower{
 	public void shoot(Enemy target) {
 		super.projectiles.add(new ProjectileCannon(super.type.projectileType, super.target, super.getX(), super.getY(), 32, 32));
 	}
-	
-	
-	
+			
 }
