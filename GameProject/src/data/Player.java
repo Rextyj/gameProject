@@ -104,7 +104,7 @@ public class Player {
 	
 	private void placeTower(){
 		if(holdingTower){
-			if(modifyCoins(-20)){
+			if(modifyCoins(-tempTower.getCost())){
 				//add the tower being held to the tower list to be drawn 
 				towerList.add(tempTower);
 			}
