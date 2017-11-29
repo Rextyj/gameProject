@@ -79,12 +79,9 @@ public class Player {
 			
 		}
 		
-//		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
-//			if(modifyCoins(-10)){
-//				towerList.add(new TowerCannonBlue(TowerType.RedCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-//		
-//			}
-//		}
+		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
+			System.out.println("Right Clicked");
+		}
 		
 		//this is very important, otherwise, there will be more than one tower placed at the same position
 		//execute the update method only once per click, because the mouseButtonDown flag will stay true until
@@ -108,7 +105,8 @@ public class Player {
 	private void placeTower(){
 		if(holdingTower){
 			if(modifyCoins(-20)){
-				towerList.add(new TowerIce(TowerType.IceCannon, getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
+				//add the tower being held to the tower list to be drawn 
+				towerList.add(tempTower);
 			}
 		}
 		holdingTower = false;

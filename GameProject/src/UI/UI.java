@@ -13,6 +13,7 @@ public class UI {
 		buttonList = new ArrayList<Button>();
 	}
 	
+	//x and y are pixel coordinates
 	public void addButton(String name, String textureName, int x, int y){
 		buttonList.add(new Button(name, quickLoad(textureName), x, y));
 	}

@@ -27,7 +27,11 @@ public class Game {
 	
 	private void setupUI(){
 		towerPickerUI = new UI();
+		//need to change the hard coded numbers in the future
 		towerPickerUI.addButton("IceCannon", "iceTowerBase", 0, 0);
+//		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
+		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
+		
 	}
 	
 	private void updateUI(){
@@ -37,6 +41,12 @@ public class Game {
 			if(mouseClicked){
 				if(towerPickerUI.isButtonClicked("IceCannon")){
 					player.pickTower(new TowerIce(TowerType.IceCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
+				}
+//				if(towerPickerUI.isButtonClicked("RedCannon")){
+//					player.pickTower(new TowerCannon(TowerType.RedCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
+//				}
+				if(towerPickerUI.isButtonClicked("BlueCannon")){
+					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 				}
 			}
 		}
