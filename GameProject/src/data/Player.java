@@ -16,7 +16,8 @@ public class Player {
 	private TileType[] types;
 	private WaveManager waveManager;
 	private ArrayList<Tower> towerList;
-	private boolean leftMouseButtonDown, rightMouseButtonDown;
+	private boolean leftMouseButtonDown, rightMouseButtonDown, holdingTower;
+	private Tower tempTower;
 	public static int coins, lives;
 	
 	public Player(TileGrid grid, WaveManager waveManager){
@@ -29,6 +30,8 @@ public class Player {
 		this.towerList = new ArrayList<Tower> ();
 		this.leftMouseButtonDown = false;
 		this.rightMouseButtonDown = false;
+		this.holdingTower = false;
+		this.tempTower = null;
 		coins = 0;
 		lives = 0;
 	}
@@ -55,6 +58,14 @@ public class Player {
 	}
 	
 	public void update(){
+		
+		//update holding tower
+		if(holdingTower){
+			tempTower.setX(getMouseTile().getX());
+			tempTower.setY(getMouseTile().getY());
+			tempTower.draw();
+		}
+		
 		//loop through all the towers and update
 		for(Tower t : towerList){
 			t.update();
@@ -63,19 +74,17 @@ public class Player {
 		}
 		
 		//mouse
-		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
-			if(modifyCoins(-20)){
-				towerList.add(new TowerIce(TowerType.IceCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-			}
+		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){//0 is for left button, 1 right
+			placeTower();
 			
 		}
 		
-		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){//0 is for left button, 1 right
-			if(modifyCoins(-10)){
-				towerList.add(new TowerCannonBlue(TowerType.RedCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-		
-			}
-		}
+//		if(Mouse.isButtonDown(1) && !rightMouseButtonDown){//0 is for left button, 1 right
+//			if(modifyCoins(-10)){
+//				towerList.add(new TowerCannonBlue(TowerType.RedCannon, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+//		
+//			}
+//		}
 		
 		//this is very important, otherwise, there will be more than one tower placed at the same position
 		//execute the update method only once per click, because the mouseButtonDown flag will stay true until
@@ -94,6 +103,25 @@ public class Player {
 			}
 			
 		}
+	}
+	
+	private void placeTower(){
+		if(holdingTower){
+			if(modifyCoins(-20)){
+				towerList.add(new TowerIce(TowerType.IceCannon, getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
+			}
+		}
+		holdingTower = false;
+		tempTower = null;
+	}
+	
+	public void pickTower(Tower t){
+		tempTower = t;
+		holdingTower = true;
+	}
+	
+	private Tile getMouseTile(){
+		return grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE);
 	}
 	
 }
