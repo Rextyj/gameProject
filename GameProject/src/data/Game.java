@@ -5,6 +5,7 @@ import static helpers.Artist.quickLoad;
 
 import org.lwjgl.input.Mouse;
 
+import UI.Button;
 import UI.UI;
 
 public class Game {
@@ -28,10 +29,13 @@ public class Game {
 	private void setupUI(){
 		towerPickerUI = new UI();
 		//need to change the hard coded numbers in the future
-		towerPickerUI.addButton("IceCannon", "iceTowerBase", 0, 0);
-//		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
-		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
+//		towerPickerUI.addButton("IceCannon", "iceTowerBase", 0, 0);
+////		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
+//		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
 		
+		towerPickerUI.createMenu("TowerPicker", 0, 0);
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("IceCannon", quickLoad("iceTowerBase"), 0, 0));
+		towerPickerUI.getMenu("TowerPicker").addButton(new Button("BlueCannon", quickLoad("cannonBaseBlue"), 0, 0));
 	}
 	
 	private void updateUI(){
@@ -39,13 +43,13 @@ public class Game {
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0);
 			if(mouseClicked){
-				if(towerPickerUI.isButtonClicked("IceCannon")){
+				if(towerPickerUI.getMenu("TowerPicker").isButtonClicked("IceCannon")){
 					player.pickTower(new TowerIce(TowerType.IceCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 				}
 //				if(towerPickerUI.isButtonClicked("RedCannon")){
 //					player.pickTower(new TowerCannon(TowerType.RedCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 //				}
-				if(towerPickerUI.isButtonClicked("BlueCannon")){
+				if(towerPickerUI.getMenu("TowerPicker").isButtonClicked("BlueCannon")){
 					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 				}
 			}
