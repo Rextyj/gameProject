@@ -2,6 +2,7 @@ package data;
 
 import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.quickLoad;
+import static helpers.Artist.drawQuadTex;
 
 import org.lwjgl.input.Mouse;
 
@@ -33,7 +34,7 @@ public class Game {
 ////		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
 //		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
 		
-		towerPickerUI.createMenu("TowerPicker", 0, 0);
+		towerPickerUI.createMenu("TowerPicker", 1312, 0, 2, 0);//1312 so that it's centered at the side menu
 		towerPickerUI.getMenu("TowerPicker").addButton(new Button("IceCannon", quickLoad("iceTowerBase"), 0, 0));
 		towerPickerUI.getMenu("TowerPicker").addButton(new Button("BlueCannon", quickLoad("cannonBaseBlue"), 0, 0));
 	}
@@ -58,6 +59,7 @@ public class Game {
 	}
 	
 	public void update(){
+		drawQuadTex(quickLoad("menuBackground"), 1280, 0 ,192, 960);
 		grid.draw();
 		waveManager.update();
 		player.update();
