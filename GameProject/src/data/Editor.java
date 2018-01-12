@@ -7,11 +7,16 @@ import static helpers.LevelDesign.saveMap;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import UI.UI;
+import UI.UI.Menu;
+
 public class Editor{
 	
 	private TileGrid grid;
 	private int index;
 	private TileType[] types;
+	private UI editorUI;
+	private Menu editorMenu;
 	
 	public Editor(){
 		this.grid = new TileGrid();
@@ -20,13 +25,31 @@ public class Editor{
 		this.types[0] = TileType.Grass;
 		this.types[1] = TileType.Dirt;
 		this.types[2] = TileType.Water;
+		setupUI();
+	}
+	
+	private void setupUI() {
+		editorUI = new UI();
+		editorUI.createMenu("TilePicker", 1280, 0, 192, 960, 2, 0);
+		editorMenu = editorUI.getMenu("TilePicker");
+		editorMenu.quickAdd("Grass", "grass64");
+		editorMenu.quickAdd("Dirt", "dirt64");
 	}
 	
 	public void update(){
-		grid.draw();
+		draw();
 		// mouse
-		if (Mouse.isButtonDown(0)) {// 0 is for left															// button, 1 right
-			 setTile();
+		if(Mouse.next()){
+			boolean mouseClicked = Mouse.isButtonDown(0);
+			if(mouseClicked){
+				if(editorMenu.isButtonClicked("Grass")){
+					index = 0;//grass has an index of 0
+				} else if(editorMenu.isButtonClicked("Dirt")){
+					index = 1;
+				} else {
+					setTile();
+				}
+			}
 		}
 
 		// keyboard input
@@ -40,6 +63,11 @@ public class Editor{
 			}
 
 		}
+	}
+	
+	private void draw() {
+		grid.draw();
+		editorUI.draw();
 	}
 	
 	private void setTile(){

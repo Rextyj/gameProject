@@ -39,8 +39,8 @@ public class UI {
 		return null;
 	}
 	
-	public void createMenu(String name, int x, int y, int optionsWidth, int optionsHeight) {
-		menuList.add(new Menu(name, x, y, optionsWidth, optionsHeight));
+	public void createMenu(String name, int x, int y, int width, int height, int optionsWidth, int optionsHeight) {
+		menuList.add(new Menu(name, x, y, width, height, optionsWidth, optionsHeight));
 	}
 	
 	public Menu getMenu(String name) {
@@ -65,7 +65,7 @@ public class UI {
 	public class Menu {
 		
 		private ArrayList<Button> menuButtons;
-		private int x, y, numberOfButtons, optionsWidth, optionsHeight;
+		private int x, y, width, height, numberOfButtons, optionsWidth, optionsHeight, padding;
 		private String name;
 		
 		/**
@@ -73,26 +73,38 @@ public class UI {
 		 * @param optionsWidth Number of columns of the side menu
 		 * @param optionsHeight Number of rows of the side menu
 		 */
-		public Menu(String name, int x, int y, int optionsWidth, int optionsHeight) {
+		public Menu(String name, int x, int y, int width, int height, int optionsWidth, int optionsHeight) {
 			this.name = name;
 			this.x = x;
 			this.y = y;
+			this.width = width;
+			this.height = height;
 			this.optionsWidth = optionsWidth;
 			this.optionsHeight = optionsHeight;
+			this.padding = (width - (optionsWidth * TILE_SIZE)) / (optionsWidth + 1);
 			this.numberOfButtons = 0;
 			this.menuButtons = new ArrayList<Button> ();
 		}
-		
+		//pass button in 
 		public void addButton(Button b) {
+			setButton(b);
+		}
+		//or quick add a button
+		public void quickAdd(String name, String buttonTextureName) {
+			Button b = new Button(name, quickLoad(buttonTextureName), 0, 0);
+			setButton(b);
+		}
+		
+		private void setButton(Button b) {
+			//auto arrange the buttons
 			if(optionsWidth != 0) {
 				//remember, numberOfButtons will increment after this
 				b.setY(y + (numberOfButtons / optionsWidth) * TILE_SIZE);
 			}
-			b.setX(x + (numberOfButtons % optionsWidth) * TILE_SIZE);
+			b.setX(x + padding + numberOfButtons * (padding + TILE_SIZE));
 			numberOfButtons++;
 			menuButtons.add(b);
 		}
-		
 		public boolean isButtonClicked(String buttonName){
 			Button b = getButton(buttonName);
 			float mouseY = HEIGHT - Mouse.getY() - 1;//openGl considers the bottom left cornor as 0,0
