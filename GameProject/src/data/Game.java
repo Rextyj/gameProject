@@ -18,10 +18,10 @@ public class Game {
 	private UI gameUI;
 	private Menu towerPickerMenu;
 	
-	public Game(int[][] map){
-		grid = new TileGrid(map);
+	public Game(TileGrid grid){
+		this.grid = grid;
 		//create a wavemanager and add the ufo type enemy wave to the manager
-		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(10, 10), grid, TILE_SIZE, TILE_SIZE, 40, 25),
+		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
 					2, 2);
 		player = new Player(grid, waveManager);
 		player.setup();
@@ -35,7 +35,7 @@ public class Game {
 ////		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
 //		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
 		
-		gameUI.createMenu("TowerPicker", 1280, 0, 192, 960, 2, 0);//menu width is set to 192
+		gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);//menu width is set to 192
 		towerPickerMenu = gameUI.getMenu("TowerPicker");
 		towerPickerMenu.quickAdd("IceCannon", "iceTowerBase");
 		towerPickerMenu.quickAdd("BlueCannon", "cannonBaseBlue");

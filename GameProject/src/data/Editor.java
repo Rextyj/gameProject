@@ -2,6 +2,8 @@ package data;
 
 import static helpers.Artist.HEIGHT;
 import static helpers.Artist.TILE_SIZE;
+import static helpers.Artist.drawQuadTex;
+import static helpers.Artist.quickLoad;
 import static helpers.LevelDesign.saveMap;
 
 import org.lwjgl.input.Keyboard;
@@ -30,10 +32,11 @@ public class Editor{
 	
 	private void setupUI() {
 		editorUI = new UI();
-		editorUI.createMenu("TilePicker", 1280, 0, 192, 960, 2, 0);
+		editorUI.createMenu("TilePicker", 1280, 100, 192, 960, 2, 0);
 		editorMenu = editorUI.getMenu("TilePicker");
 		editorMenu.quickAdd("Grass", "grass64");
 		editorMenu.quickAdd("Dirt", "dirt64");
+		editorMenu.quickAdd("Water", "water64");
 	}
 	
 	public void update(){
@@ -46,6 +49,8 @@ public class Editor{
 					index = 0;//grass has an index of 0
 				} else if(editorMenu.isButtonClicked("Dirt")){
 					index = 1;
+				} else if(editorMenu.isButtonClicked("Water")){
+					index = 2;
 				} else {
 					setTile();
 				}
@@ -66,6 +71,7 @@ public class Editor{
 	}
 	
 	private void draw() {
+		drawQuadTex(quickLoad("menuBackground"), 1280, 0 ,192, 960);
 		grid.draw();
 		editorUI.draw();
 	}

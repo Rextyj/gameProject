@@ -20,6 +20,7 @@ public class TowerIce extends Tower{
 	
 	@Override
 	public void shoot(Enemy target) {
-		super.projectiles.add(new ProjectileIce(super.type.projectileType, super.target, super.getX(), super.getY(), 32, 32));
+		//16 is the offset so the project tile (which is 32 x 32) is centered
+		super.projectiles.add(new ProjectileIce(super.type.projectileType, super.target, super.getX() + 16, super.getY() + 16, 32, 32));
 	}
 }

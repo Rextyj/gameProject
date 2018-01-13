@@ -10,7 +10,8 @@ public class TowerCannonBlue extends Tower{
 
 	@Override
 	public void shoot(Enemy target) {
-		super.projectiles.add(new ProjectileCannon(super.type.projectileType, super.target, super.getX(), super.getY(), 32, 32));
+		//+16 so that projectile is centered
+		super.projectiles.add(new ProjectileCannon(super.type.projectileType, super.target, super.getX() + 16, super.getY() + 16, 32, 32));
 	}
 			
 }
