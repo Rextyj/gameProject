@@ -6,7 +6,6 @@ import static helpers.Artist.drawQuadTex;
 
 import org.lwjgl.input.Mouse;
 
-import UI.Button;
 import UI.UI;
 import UI.UI.Menu;
 
@@ -17,6 +16,7 @@ public class Game {
 	private WaveManager waveManager;
 	private UI gameUI;
 	private Menu towerPickerMenu;
+	
 	
 	public Game(TileGrid grid){
 		this.grid = grid;
@@ -29,12 +29,7 @@ public class Game {
 	}
 	
 	private void setupUI(){
-		gameUI = new UI();
-		//need to change the hard coded numbers in the future
-//		towerPickerUI.addButton("IceCannon", "iceTowerBase", 0, 0);
-////		towerPickerUI.addButton("RedCannon", "cannonBase", 0, 64);
-//		towerPickerUI.addButton("BlueCannon", "cannonBaseBlue", 0, 128);
-		
+		gameUI = new UI();	
 		gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);//menu width is set to 192
 		towerPickerMenu = gameUI.getMenu("TowerPicker");
 		towerPickerMenu.quickAdd("IceCannon", "iceTowerBase");
