@@ -25,7 +25,7 @@ public class Game {
 		this.menuBackground = quickLoad("menuBackground");
 		//create a wavemanager and add the ufo type enemy wave to the manager
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
-					2, 2);
+					2, 5);
 		player = new Player(grid, waveManager);
 		player.setup();
 		setupUI();

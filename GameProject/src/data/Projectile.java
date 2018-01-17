@@ -61,7 +61,7 @@ public abstract class Projectile implements Entity{
 	
 	public void update() {
 		if (alive) {
-//			calculateDirection();// so the projectile will follow the target
+			calculateDirection();// so the projectile will follow the target
 									// even if the bullet is slow
 			x += xVelocity * speed * delta();
 			y += yVelocity * speed * delta();

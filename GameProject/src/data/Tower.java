@@ -43,7 +43,10 @@ public abstract class Tower implements Entity {
 		double closestDistance = Integer.MAX_VALUE;
 		//return the nearest enemy in the enemy list that is alive
 		for(Enemy e : enemies) {
-			if(!e.isAlive()){
+//			if(!e.isAlive()){
+//				continue;
+//			}
+			if(e.getHiddenHealth() < 0) {
 				continue;
 			}
 			if(isInRange(e) && findDistance(e) < closestDistance){
@@ -96,8 +99,8 @@ public abstract class Tower implements Entity {
 		if(target == null || target.isAlive() == false || !isInRange(target)){
 			hasTarget = false;
 		} 
-		
-		if(!hasTarget){
+		//if the target's hidden health is already below 0, don't shoot the new projectile to it
+		if(!hasTarget || target.getHiddenHealth() < 0){
 			target = aquireTarget();
 		} else {
 			timeSinceLastShot += delta();

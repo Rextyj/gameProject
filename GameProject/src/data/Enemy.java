@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Enemy implements Entity{
 	//same as tile, x, y are already inverted
 	private int width, height, currentCheckPoint;
-	private float speed, x, y, health, startHealth;
+	private float speed, x, y, health, startHealth, hiddenHealth;
 	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
 	private boolean first, alive;
@@ -31,6 +31,7 @@ public class Enemy implements Entity{
 		this.speed = speed;
 		this.health = health;
 		this.startHealth = health;
+		this.hiddenHealth = health;
 		this.grid = grid;
 		this.first = true;
 		this.alive = true;
@@ -205,6 +206,14 @@ public class Enemy implements Entity{
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public float getHiddenHealth() {
+		return hiddenHealth;
+	}
+
+	public void reduceHiddenHealth(float amount) {
+		this.hiddenHealth -= amount;
 	}
 
 	public float getHealth() {
