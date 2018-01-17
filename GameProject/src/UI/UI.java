@@ -1,18 +1,28 @@
 package UI;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.TrueTypeFont;
 
 import static helpers.Artist.*;
 public class UI {
 	
 	private ArrayList<Button> buttonList;
 	private ArrayList<Menu> menuList;
+	private TrueTypeFont font;
+	private Font awtFont;
 	
 	public UI(){
 		buttonList = new ArrayList<Button>();
 		menuList = new ArrayList<Menu>();
+		awtFont = new Font("Time New Roam", Font.BOLD, 24);
+		font = new TrueTypeFont(awtFont, false);
+	}
+	
+	public void drawString(int x, int y, String text) {
+		font.drawString(x, y, text);
 	}
 	
 	//x and y are pixel coordinates

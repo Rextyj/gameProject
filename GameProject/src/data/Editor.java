@@ -8,6 +8,7 @@ import static helpers.LevelDesign.saveMap;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
 import UI.UI.Menu;
@@ -19,6 +20,7 @@ public class Editor{
 	private TileType[] types;
 	private UI editorUI;
 	private Menu editorMenu;
+	private Texture menuBackground;
 	
 	public Editor(){
 		this.grid = new TileGrid();
@@ -27,6 +29,7 @@ public class Editor{
 		this.types[0] = TileType.Grass;
 		this.types[1] = TileType.Dirt;
 		this.types[2] = TileType.Water;
+		this.menuBackground = quickLoad("menuBackground");
 		setupUI();
 	}
 	
@@ -71,7 +74,7 @@ public class Editor{
 	}
 	
 	private void draw() {
-		drawQuadTex(quickLoad("menuBackground"), 1280, 0 ,192, 960);
+		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
 		grid.draw();
 		editorUI.draw();
 	}

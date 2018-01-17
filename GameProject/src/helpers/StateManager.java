@@ -56,7 +56,6 @@ public class StateManager {
 		}
 		framesInCurrentSecond++;
 		
-		System.out.println(framesInLastSecond + "fps");
 	}
 	
 	public static void setState(GameState newState){
