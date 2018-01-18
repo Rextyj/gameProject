@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Enemy implements Entity{
 	//same as tile, x, y are already inverted
 	private int width, height, currentCheckPoint;
-	private float speed, x, y, health, startHealth, hiddenHealth;
+	private float speed, x, y, health, startHealth, hiddenHealth, texRotateAngle;
 	private Texture texture, healthBackground, healthForeground, healthBorder;
 	private Tile startTile;
 	private boolean first, alive;
@@ -33,6 +33,7 @@ public class Enemy implements Entity{
 		this.startHealth = 50;
 		this.health = startHealth;
 		this.hiddenHealth = startHealth;
+		this.texRotateAngle = 0;
 		this.grid = grid;
 		this.first = true;
 		this.alive = true;
@@ -61,6 +62,7 @@ public class Enemy implements Entity{
 		this.health = health;
 		this.startHealth = health;
 		this.hiddenHealth = health;
+		this.texRotateAngle = 0;
 		this.grid = grid;
 		this.first = true;
 		this.alive = true;
@@ -119,13 +121,17 @@ public class Enemy implements Entity{
 		//this prevents the enemy from jumping ahead due to the amount of time used to set up
 		if(first) {
 			first = false;
+			getRotationAngle();
 		} else {
+			//if a checkpoint is reached
 			if(checkPointReached()){
 				//check if there is more check points ahead
 				if(currentCheckPoint + 1 == checkpoints.size()){
 					endOfMazeReached();
 				} else {
 					currentCheckPoint++;
+					//updating direction to the next check point
+					getRotationAngle();
 				}				
 			} else {
 				//if it hasn't reached a checkpoint, continue in the current direction
@@ -135,6 +141,20 @@ public class Enemy implements Entity{
 		}
 	}
 	
+	private void getRotationAngle() {
+		int xDirct = checkpoints.get(currentCheckPoint).getxDirection();
+		int yDirct = checkpoints.get(currentCheckPoint).getyDirection();
+		
+		if(xDirct == 0 && yDirct == 1) {
+			texRotateAngle = 90;
+		} else if(xDirct == -1 && yDirct == 0) {
+			texRotateAngle = 180;
+		} else if(xDirct == 0 && yDirct == -1) {
+			texRotateAngle = -90;
+		} else {
+			texRotateAngle = 0;
+		}
+	}
 	
 	//run if the enemy has reached the end of the maze
 	private  void endOfMazeReached(){
@@ -212,15 +232,24 @@ public class Enemy implements Entity{
 	}
 	
 	public void draw(){
+		drawEnemyTex();
+		drawHealthBar();
+	}
+	
+	public void drawHealthBar() {
 		float healthPercent = health / startHealth;
-		//Enemy tex
-		drawQuadTex(texture, x, y, width, height);
 		//health bar tex
 		drawQuadTex(healthBackground, x, y - 16, width, 8);
 		drawQuadTex(healthForeground, x, y - 16, TILE_SIZE * healthPercent, 8);
 		drawQuadTex(healthBorder, x, y - 16, width, 8);
 	}
-
+	
+	public void drawEnemyTex() {
+		//Enemy tex
+		drawQuadTexRot(texture, x, y, width, height, texRotateAngle);
+//		System.out.println("This is the default method");
+	}
+	
 	public int getWidth() {
 		return width;
 	}
@@ -284,6 +313,10 @@ public class Enemy implements Entity{
 	public void setTexture(Texture texture) {
 		this.texture = texture;
 	}
+	
+	public void setTexture(String textureName) {
+		this.texture = quickLoad(textureName);
+	}
 
 	public Tile getStartTile() {
 		return startTile;
@@ -304,4 +337,9 @@ public class Enemy implements Entity{
 	public boolean isAlive(){
 		return alive;
 	}
+
+	public float getTexRotateAngle() {
+		return texRotateAngle;
+	}
+	
 }

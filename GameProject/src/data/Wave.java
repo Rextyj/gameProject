@@ -56,7 +56,11 @@ public class Wave {
 	}
 
 	private void spawn() {
-		enemyTypeIndex = r.nextInt(2);
+//		enemyTypeIndex = r.nextInt(enemyTypes.length);
+		enemyTypeIndex = 2;
+		//*************************************************************************************************************************************
+		//Note that with this way of adding new enemies into the list, overriding methods in subclasses is not going to work!!!!!!!
+		//*************************************************************************************************************************************
 		enemyList.add(new Enemy(enemyTypes[enemyTypeIndex].getTexture(), enemyTypes[enemyTypeIndex].getStartTile(), enemyTypes[enemyTypeIndex].getGrid(), TILE_SIZE, TILE_SIZE,
 				enemyTypes[enemyTypeIndex].getSpeed(), enemyTypes[enemyTypeIndex].getHealth()));
 		enemiesSpawned++;

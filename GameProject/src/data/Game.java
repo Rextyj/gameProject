@@ -24,9 +24,10 @@ public class Game {
 	public Game(TileGrid grid){
 		this.grid = grid;
 		this.menuBackground = quickLoad("menuBackground");
-		enemyTypes = new Enemy[2];
+		enemyTypes = new Enemy[3];
 		enemyTypes[0] = new EnemyAlien(1, 0, grid);
 		enemyTypes[1] = new EnemyUFO(1, 0, grid);
+		enemyTypes[2] = new EnemyInfantry(1, 0, grid);
 		/*
 		//create a wavemanager and add the ufo type enemy wave to the manager
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
