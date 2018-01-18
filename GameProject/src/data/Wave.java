@@ -3,25 +3,28 @@ package data;
 import static helpers.Artist.TILE_SIZE;
 import static helpers.Clock.delta;
 
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Wave {
 
 	private float timeSinceLastSpawn, spawnTime;
-	private Enemy enemyType;
+	private Enemy[] enemyTypes;
 	private CopyOnWriteArrayList<Enemy> enemyList;
 	private int enemiesPerWave, enemiesSpawned;
 	private boolean waveCompleted;
+	private int enemyTypeIndex;
+	private Random r;
 	
-	public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
-		this.enemyType = enemyType;
+	public Wave(Enemy[] enemyTypes, float spawnTime, int enemiesPerWave) {
+		this.enemyTypes = enemyTypes;
 		this.spawnTime = spawnTime;
 		this.enemiesPerWave = enemiesPerWave;
 		this.enemiesSpawned = 0;
 		this.timeSinceLastSpawn = 0;
 		this.enemyList = new CopyOnWriteArrayList<Enemy>();
 		this.waveCompleted = false;
-		
+		this.r = new Random();
 		spawn();//spawn the first enemy when program started
 	}
 
@@ -53,8 +56,9 @@ public class Wave {
 	}
 
 	private void spawn() {
-		enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(), TILE_SIZE, TILE_SIZE,
-				enemyType.getSpeed(), enemyType.getHealth()));
+		enemyTypeIndex = r.nextInt(2);
+		enemyList.add(new Enemy(enemyTypes[enemyTypeIndex].getTexture(), enemyTypes[enemyTypeIndex].getStartTile(), enemyTypes[enemyTypeIndex].getGrid(), TILE_SIZE, TILE_SIZE,
+				enemyTypes[enemyTypeIndex].getSpeed(), enemyTypes[enemyTypeIndex].getHealth()));
 		enemiesSpawned++;
 	}
 	

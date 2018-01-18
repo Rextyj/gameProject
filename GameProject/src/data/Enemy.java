@@ -18,6 +18,34 @@ public class Enemy implements Entity{
 	private ArrayList<CheckPoint> checkpoints;
 	private int[] directions;
 	
+	//default
+	public Enemy(int tileX, int tileY, TileGrid grid) {
+		this.texture = quickLoad("UFO64");
+		this.healthBackground = quickLoad("healthBarBackground");
+		this.healthForeground = quickLoad("healthBarForeground");
+		this.healthBorder = quickLoad("healthBarBorder");
+		this.startTile = grid.getTile(tileX, tileY);
+		this.x = startTile.getX();
+		this.y = startTile.getY();
+		this.width = TILE_SIZE;
+		this.height = TILE_SIZE;
+		this.speed = 50;
+		this.startHealth = 50;
+		this.health = startHealth;
+		this.hiddenHealth = startHealth;
+		this.grid = grid;
+		this.first = true;
+		this.alive = true;
+		
+		this.checkpoints = new ArrayList<CheckPoint> ();
+		//index 0 is x, 1 is y
+		this.directions = new int[2];
+		
+		directions = findNextD(startTile);
+		this.currentCheckPoint = 0;
+		populateCheckPointList();
+	}
+	
 	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health){
 		this.x = startTile.getX();
 		this.y = startTile.getY();
