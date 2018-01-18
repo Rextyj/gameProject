@@ -65,12 +65,11 @@ public abstract class Projectile implements Entity{
 									// even if the bullet is slow
 			x += xVelocity * speed * delta();
 			y += yVelocity * speed * delta();
+			draw();
 			if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(),
 					target.getHeight())) {
 					damage();	
 			}
-
-			draw();
 		}
 	}
 

@@ -38,7 +38,7 @@ public class Player {
 	
 	//start lives and money
 	public void setup(){
-		coins = 100;
+		coins = 5000;
 		lives = 10;
 	}
 	
@@ -68,9 +68,9 @@ public class Player {
 		
 		//loop through all the towers and update
 		for(Tower t : towerList){
+			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 			t.update();
 			t.draw();
-			t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
 		}
 		
 		//mouse

@@ -32,7 +32,7 @@ public class Game {
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
 					2, 5);
 					*/
-		waveManager = new WaveManager(enemyTypes, 1, 10);
+		waveManager = new WaveManager(enemyTypes, 1, 3);
 		player = new Player(grid, waveManager);
 		player.setup();
 		setupUI();
@@ -51,6 +51,7 @@ public class Game {
 		gameUI.drawString(1310,  700, "Lives: " + Player.lives);
 		gameUI.drawString(1310,  800, "Coins: " + Player.coins);
 		gameUI.drawString(1310,  600, "Wave " + waveManager.getWaveNumber());
+		gameUI.drawString(1310,  850, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
 		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0);

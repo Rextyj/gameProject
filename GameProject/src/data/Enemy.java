@@ -46,6 +46,7 @@ public class Enemy implements Entity{
 		populateCheckPointList();
 	}
 	
+	//this constructor is used in wave class to add different types of enemies to the wave
 	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health){
 		this.x = startTile.getX();
 		this.y = startTile.getY();

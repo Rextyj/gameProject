@@ -46,7 +46,7 @@ public abstract class Tower implements Entity {
 //			if(!e.isAlive()){
 //				continue;
 //			}
-			if(e.getHiddenHealth() < 0) {
+			if(e.getHiddenHealth() <= 0) {
 				continue;
 			}
 			if(isInRange(e) && findDistance(e) < closestDistance){
@@ -100,7 +100,8 @@ public abstract class Tower implements Entity {
 			hasTarget = false;
 		} 
 		//if the target's hidden health is already below 0, don't shoot the new projectile to it
-		if(!hasTarget || target.getHiddenHealth() < 0){
+		if(!hasTarget || target.getHiddenHealth() <= 0){
+//		if(!hasTarget){
 			target = aquireTarget();
 		} else {
 			timeSinceLastShot += delta();
@@ -108,12 +109,12 @@ public abstract class Tower implements Entity {
 				shoot(target);
 				timeSinceLastShot = 0;
 			}
-
-			for(Projectile p : projectiles){
-				p.update();
-			}
 			angle = calculateAngle();
 			
+		}
+		//update projectile regardless of the current target being valid or not
+		for(Projectile p : projectiles){
+				p.update();
 		}
 	}
 

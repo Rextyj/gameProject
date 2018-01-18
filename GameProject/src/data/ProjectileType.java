@@ -5,8 +5,8 @@ import static helpers.Artist.quickLoad;
 import org.newdawn.slick.opengl.Texture;
 
 public enum ProjectileType {
-	CannonBall(quickLoad("bullet"), 10, 500),
-	IceBall(quickLoad("iceBullet"), 6, 450);
+	CannonBall(quickLoad("bullet"), 10, 200),
+	IceBall(quickLoad("iceBullet"), 6, 150);
 	
 	
 	Texture texture;
