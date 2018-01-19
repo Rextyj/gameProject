@@ -29,7 +29,7 @@ public class Enemy implements Entity{
 		this.y = startTile.getY();
 		this.width = TILE_SIZE;
 		this.height = TILE_SIZE;
-		this.speed = 50;
+		this.speed = 150;
 		this.startHealth = 50;
 		this.health = startHealth;
 		this.hiddenHealth = startHealth;
@@ -85,7 +85,7 @@ public class Enemy implements Entity{
 		while(cont){
 			int[] currentD = findNextD(checkpoints.get(counter).getTile());
 			//check if there is a next direction and the number of checkpoints reaches 21 (arbitrary ?)
-			if(currentD[0] == 2 || counter == 20){
+			if(currentD[0] == 2 || counter > (WIDTH * HEIGHT / TILE_SIZE)){
 				cont = false;
 			} else {
 				checkpoints.add(findNextC(checkpoints.get(counter).getTile(),

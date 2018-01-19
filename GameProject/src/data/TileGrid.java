@@ -5,19 +5,28 @@ import static helpers.Artist.TILE_SIZE;
 public class TileGrid {
 	
 	public Tile[][] map;
-	private int tilesWide, tilesHigh;
+	private int tilesWide, tilesHigh, invalidWidth;
 	
+	//default tilegrid
 	public TileGrid(){
-		this.tilesWide = 20;
+		this.tilesWide = 23;
 		this.tilesHigh = 15;
+		this.invalidWidth = 3;
 		map = new Tile[tilesWide][tilesHigh];
-		for(int i =0; i < map.length; i++){
+		for(int i =0; i < map.length - invalidWidth; i++){
 			for(int j = 0; j < map[i].length; j++){
-				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Grass);//the coordinate system in opengl
+				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Grass);
+				//the coordinate system in opengl
 				//uses column number for x instead of y
 				//in Java, [10][5] means 10 rows and 5 columns
 				//but the glTranslatef sees x as the column number, thus would need to be
 				//glTranslatef(5, 10, 0);
+			}
+		}
+		//this is to set tiles under side menu to unbuildable
+		for(int i = map.length - invalidWidth; i < tilesWide; i++){
+			for(int j = 0; j < map[i].length; j++){
+				map[i][j] = new Tile(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE, TileType.Null);
 			}
 		}
 	}
@@ -39,13 +48,22 @@ public class TileGrid {
 				case 2:
 					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Water);
 					break;
+				case 3: 
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Null);
+					break;
 				}
 			}
 		}
 	}
 	
+	
+	
 	public void setTile(int xCoord, int yCoord, TileType type){
-		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);//remember the input argument does not match the coordinate system of Java
+		//prevent tiles being set outside the grid
+		if(xCoord > TILE_SIZE * tilesWide || yCoord > TILE_SIZE * tilesHigh || xCoord < 0 || yCoord < 0) {
+			return;
+		}
+		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);
 	}
 	
 	public Tile getTile(int xPlace, int yPlace){//input the coor according to our coordinate sys

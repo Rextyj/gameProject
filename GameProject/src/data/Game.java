@@ -64,7 +64,7 @@ public class Game {
 //					player.pickTower(new TowerCannon(TowerType.RedCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 //				}
 				if(towerPickerMenu.isButtonClicked("BlueCannon")){
-					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
+					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, player.getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
 				}
 			}
 		}
@@ -72,10 +72,12 @@ public class Game {
 	}
 	
 	public void update(){
-		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
+		
 		grid.draw();
+		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
 		waveManager.update();
 		player.update();
 		updateUI();
+		
 	}
 }

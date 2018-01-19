@@ -74,8 +74,8 @@ public class Editor{
 	}
 	
 	private void draw() {
-		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
 		grid.draw();
+		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
 		editorUI.draw();
 	}
 	

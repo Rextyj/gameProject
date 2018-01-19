@@ -104,8 +104,9 @@ public class Player {
 	
 	private void placeTower(){
 		Tile thisTile = getMouseTile();
+		System.out.println("" + thisTile.getOccupied());
 		if(holdingTower){
-			if(!thisTile.getOccupied() && modifyCoins(-tempTower.getCost())  ){
+			if(!thisTile.getOccupied() && modifyCoins(-tempTower.getCost())){
 				//add the tower being held to the tower list to be drawn 
 				towerList.add(tempTower);
 				thisTile.setOccupied(true);
@@ -121,7 +122,7 @@ public class Player {
 		holdingTower = true;
 	}
 	
-	private Tile getMouseTile(){
+	protected Tile getMouseTile(){
 		return grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1)/ TILE_SIZE);
 	}
 	

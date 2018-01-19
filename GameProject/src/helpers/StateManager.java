@@ -21,6 +21,7 @@ public class StateManager {
 	public static int framesInLastSecond = 0;
 	public static int framesInCurrentSecond = 0;
 	
+	//the loadmap function will return a TileGrid constructed by the default constructor that is all grass
 	static TileGrid map = loadMap("newMap1");
 	
 	public static void update(){
