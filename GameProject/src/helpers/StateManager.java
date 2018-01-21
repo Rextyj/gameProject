@@ -1,19 +1,22 @@
 package helpers;
 
+import static helpers.LevelDesign.loadMap;
+
 import data.Editor;
 import data.Game;
 import data.MainMenu;
+import data.PauseMenu;
 import data.TileGrid;
 
-import static helpers.LevelDesign.loadMap;
-
+//State manager generate the instances for each major component of the game
 public class StateManager {
 	public static enum GameState {
-		MAINMENU, GAME, EDITOR
+		MAINMENU, GAME, EDITOR, PAUSEMENU
 	}
 	
 	public static GameState gameState = GameState.MAINMENU;
 	public static MainMenu mainMenu;
+	public static PauseMenu pauseMenu;
 	public static Game game;
 	public static Editor editor;
 	//fps tracking 
@@ -44,6 +47,13 @@ public class StateManager {
 			}
 			editor.update();
 			break;
+		case PAUSEMENU:
+			if(pauseMenu == null) {
+				pauseMenu = new PauseMenu();
+			}
+			//game needs to be still drawing to make the it visible through the background
+			game.keepDrawing();
+			pauseMenu.update();
 		}
 		
 		/**

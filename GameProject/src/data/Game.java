@@ -10,6 +10,7 @@ import org.newdawn.slick.opengl.Texture;
 import UI.UI;
 import UI.UI.Menu;
 import helpers.StateManager;
+import helpers.StateManager.GameState;
 
 public class Game {
 	
@@ -17,7 +18,7 @@ public class Game {
 	private Player player;
 	private WaveManager waveManager;
 	private UI gameUI;
-	private Menu towerPickerMenu;
+	private Menu towerPickerMenu, functionMenu;
 	private Texture menuBackground;
 	private Enemy[] enemyTypes;
 	
@@ -42,9 +43,15 @@ public class Game {
 	private void setupUI(){
 		gameUI = new UI();	
 		gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);//menu width is set to 192
+		//menu for pause, continue and pauseMenu
+		gameUI.createMenu("FunctionMenu", 1280, 896, 192, 64, 4, 0);
 		towerPickerMenu = gameUI.getMenu("TowerPicker");
 		towerPickerMenu.quickAdd("IceCannon", "iceTowerBase");
 		towerPickerMenu.quickAdd("BlueCannon", "cannonBaseBlue");
+		functionMenu = gameUI.getMenu("FunctionMenu");
+		//change the texture according to the game state
+		functionMenu.quickAdd("StartPause", "start");
+		functionMenu.quickAdd("PauseMenu", "menuList");
 	}
 	
 	private void updateUI(){
@@ -66,6 +73,9 @@ public class Game {
 				if(towerPickerMenu.isButtonClicked("BlueCannon")){
 					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, player.getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
 				}
+				if(functionMenu.isButtonClicked("PauseMenu")) {
+					StateManager.setState(GameState.PAUSEMENU);
+				}
 			}
 		}
 				
@@ -79,5 +89,12 @@ public class Game {
 		player.update();
 		updateUI();
 		
+	}
+	
+	public void keepDrawing() {
+		grid.draw();
+		waveManager.keepDrawing();
+		player.update();
+		updateUI();
 	}
 }

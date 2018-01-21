@@ -54,7 +54,20 @@ public class Wave {
 			waveCompleted = true;
 		}
 	}
-
+	
+	public void keepDrawing() {
+		for (Enemy e : enemyList) {
+			if (e.isAlive()) {
+				e.draw();
+			} else {
+				//remove dead enemies
+				enemyList.remove(e);
+				//but, if we use arraylist, there will be concurrent writing error
+				//so we use copyonwritearraylist
+			}
+		}
+	}
+	
 	private void spawn() {
 //		enemyTypeIndex = r.nextInt(enemyTypes.length);
 		enemyTypeIndex = 2;

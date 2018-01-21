@@ -12,8 +12,10 @@ import helpers.StateManager.GameState;
 public class MainMenu {
 	private Texture background;
 	private UI menuUI;
+	private boolean leftMouseButtonDown;
 	
 	public MainMenu(){
+		this.leftMouseButtonDown = false;
 		background = quickLoad("mainMenu");
 		menuUI = new UI();
 		menuUI.addButton("Play", "playButton", WIDTH / 2 - 128, (int) (HEIGHT * 0.45f));
@@ -25,7 +27,7 @@ public class MainMenu {
 	
 	//Execute the actions if user clicked the button
 	private void updateButtons(){
-		if(Mouse.isButtonDown(0)){
+		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
 			if(menuUI.isButtonClicked("Play")){
 				StateManager.setState(GameState.GAME);
 			}
@@ -37,6 +39,7 @@ public class MainMenu {
 				StateManager.setState(GameState.EDITOR);
 			}
 		}
+		leftMouseButtonDown = Mouse.isButtonDown(0);
 	}
 	
 	public void update(){

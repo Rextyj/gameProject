@@ -56,6 +56,7 @@ public class Artist {
 	
 	public static void drawQuadTex(Texture tex, float x, float y, float width, float height){
 		tex.bind();//all drawing will be filled with this texture until replaced by another texture
+		glColor4f(1f, 1f, 1f, 1f);
 		glTranslatef(x, y, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
@@ -68,6 +69,26 @@ public class Artist {
 		glVertex2f(0, height);
 		glEnd();
 		glLoadIdentity();//stops continues drawing?
+	}
+	
+	//alpha is the transparency
+	public static void drawQuadTexTrans(Texture tex, float alpha,  float x, float y, float width, float height) {
+		tex.bind();//all drawing will be filled with this texture until replaced by another texture
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glColor4f(1f, 1f, 1f, alpha);
+		glTranslatef(x, y, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0);
+		glVertex2f(width, 0);
+		glTexCoord2f(1, 1);
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height);
+		glEnd();
+		glLoadIdentity();
+//		glColor4f(1f, 1f, 1f, 1f);
 	}
 	
 	public static boolean checkCollision(float x1, float y1, float width1, float height1,

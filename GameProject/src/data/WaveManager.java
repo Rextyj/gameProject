@@ -28,6 +28,10 @@ public class WaveManager {
 		
 	}
 	
+	public void keepDrawing() {
+		currentWave.keepDrawing();
+	}
+	
 	public void newWave(){
 		currentWave = new Wave(enemyTypes, timeBetweenEnemies, enemiesPerWave);
 		waveNumber++;
