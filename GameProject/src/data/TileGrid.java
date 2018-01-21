@@ -51,16 +51,23 @@ public class TileGrid {
 				case 3: 
 					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Null);
 					break;
+				case 4: 
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.Start);
+					break;
+				case 5: 
+					map[i][j] = new Tile(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE,TILE_SIZE, TileType.End);
+					break;
 				}
 			}
 		}
 	}
 	
 	
-	
+	//xCoord and yCoord are tile coordinates! not pixel!
 	public void setTile(int xCoord, int yCoord, TileType type){
 		//prevent tiles being set outside the grid
-		if(xCoord > TILE_SIZE * tilesWide || yCoord > TILE_SIZE * tilesHigh || xCoord < 0 || yCoord < 0) {
+		if(xCoord > tilesWide - invalidWidth || yCoord >  tilesHigh || xCoord < 0 || yCoord < 0) {
+//			System.out.println("this location is not available");
 			return;
 		}
 		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);
