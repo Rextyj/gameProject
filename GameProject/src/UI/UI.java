@@ -40,7 +40,7 @@ public class UI {
 		return false;
 	}
 	
-	private Button getButton(String buttonName){
+	protected Button getButton(String buttonName){
 		for(Button b : buttonList){
 			if(b.getName().equals(buttonName)){
 				return b;
@@ -125,7 +125,7 @@ public class UI {
 			return false;
 		}
 		
-		private Button getButton(String buttonName){
+		public Button getButton(String buttonName){
 			for(Button b : menuButtons){
 				if(b.getName().equals(buttonName)){
 					return b;

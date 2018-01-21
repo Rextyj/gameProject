@@ -2,6 +2,8 @@ package UI;
 
 import org.newdawn.slick.opengl.Texture;
 
+import static helpers.Artist.quickLoad;
+
 public class Button {
 	
 	private String name;
@@ -40,8 +42,8 @@ public class Button {
 		return texture;
 	}
 
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+	public void setTexture(String textureName) {
+		this.texture = quickLoad(textureName);
 	}
 
 	public int getX() {

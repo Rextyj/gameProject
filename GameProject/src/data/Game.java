@@ -21,7 +21,7 @@ public class Game {
 	private Menu towerPickerMenu, functionMenu;
 	private Texture menuBackground;
 	private Enemy[] enemyTypes;
-	private boolean isPaused;
+	private boolean isPaused, leftMouseButtonDown;
 	
 	public Game(TileGrid grid){
 		this.grid = grid;
@@ -52,7 +52,7 @@ public class Game {
 		towerPickerMenu.quickAdd("BlueCannon", "cannonBaseBlue");
 		functionMenu = gameUI.getMenu("FunctionMenu");
 		//change the texture according to the game state
-		functionMenu.quickAdd("StartPause", "start");
+		functionMenu.quickAdd("StartPause", "startButton");
 		functionMenu.quickAdd("PauseMenu", "menuList");
 	}
 	
@@ -64,7 +64,7 @@ public class Game {
 		gameUI.drawString(1310,  850, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
 		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
 		if(Mouse.next()){
-			boolean mouseClicked = Mouse.isButtonDown(0);
+			boolean mouseClicked = Mouse.isButtonDown(0) && !leftMouseButtonDown;
 			if(mouseClicked){
 				if(towerPickerMenu.isButtonClicked("IceCannon")){
 					player.pickTower(new TowerIce(TowerType.IceCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
@@ -80,8 +80,15 @@ public class Game {
 				}
 				if(functionMenu.isButtonClicked("StartPause")) {
 					isPaused = !isPaused;
+					if(!isPaused) {
+						functionMenu.getButton("StartPause").setTexture("pauseButton");
+					} else {
+						functionMenu.getButton("StartPause").setTexture("startButton");
+					}
+					
 				}
 			}
+			leftMouseButtonDown = Mouse.isButtonDown(0);
 		}
 				
 	}

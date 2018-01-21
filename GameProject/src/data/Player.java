@@ -104,7 +104,7 @@ public class Player {
 	
 	private void placeTower(){
 		Tile thisTile = getMouseTile();
-		System.out.println("" + thisTile.getOccupied());
+//		System.out.println("" + thisTile.getOccupied());
 		if(holdingTower){
 			if(!thisTile.getOccupied() && modifyCoins(-tempTower.getCost())){
 				//add the tower being held to the tower list to be drawn 
