@@ -25,7 +25,8 @@ public class Tile {
 			occupied = true;
 		}
 	}
-
+	
+	
 	public void draw() {
 		drawQuadTex(texture, x, y, width, height);
 	}
