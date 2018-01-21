@@ -21,10 +21,12 @@ public class Game {
 	private Menu towerPickerMenu, functionMenu;
 	private Texture menuBackground;
 	private Enemy[] enemyTypes;
+	private boolean isPaused;
 	
 	public Game(TileGrid grid){
 		this.grid = grid;
 		this.menuBackground = quickLoad("menuBackground");
+		this.isPaused = true;
 		enemyTypes = new Enemy[3];
 		enemyTypes[0] = new EnemyAlien(1, 0, grid);
 		enemyTypes[1] = new EnemyUFO(1, 0, grid);
@@ -76,6 +78,9 @@ public class Game {
 				if(functionMenu.isButtonClicked("PauseMenu")) {
 					StateManager.setState(GameState.PAUSEMENU);
 				}
+				if(functionMenu.isButtonClicked("StartPause")) {
+					isPaused = !isPaused;
+				}
 			}
 		}
 				
@@ -85,7 +90,12 @@ public class Game {
 		
 		grid.draw();
 		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
-		waveManager.update();
+		if(!isPaused) {
+			waveManager.update();
+		} else {
+			waveManager.keepDrawing();
+		}
+		
 		player.update();
 		updateUI();
 		
