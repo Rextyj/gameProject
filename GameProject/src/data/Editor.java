@@ -77,6 +77,14 @@ public class Editor{
 			}
 			//save
 			if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
+				//need to save the start and end tiles too!
+				/*
+				 * try to embed the start and end tile into the tilegrid. Anywhere under the side menu
+				 */
+				for(int i = 0; i < 2; i++) {
+					grid.setTile(grid.getTilesWide() - grid.getInvalidWidth() + i, 0, startEndTiles[i]);
+				}
+				
 				saveMap("newMap1", grid);
 			}
 

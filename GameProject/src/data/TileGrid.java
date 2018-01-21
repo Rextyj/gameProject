@@ -66,11 +66,15 @@ public class TileGrid {
 	//xCoord and yCoord are tile coordinates! not pixel!
 	public void setTile(int xCoord, int yCoord, TileType type){
 		//prevent tiles being set outside the grid
-		if(xCoord > tilesWide - invalidWidth || yCoord >  tilesHigh || xCoord < 0 || yCoord < 0) {
+		if(xCoord >= tilesWide - invalidWidth || yCoord >=  tilesHigh || xCoord < 0 || yCoord < 0) {
 //			System.out.println("this location is not available");
 			return;
 		}
 		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);
+	}
+	
+	public void setTile(int xTileCoord, int yTileCoord, Tile t) {
+		map[xTileCoord][yTileCoord] = t;
 	}
 	
 	public Tile getTile(int xPlace, int yPlace){//input the coor according to our coordinate sys
@@ -106,6 +110,10 @@ public class TileGrid {
 
 	public void setTilesHigh(int tilesHigh) {
 		this.tilesHigh = tilesHigh;
+	}
+	
+	public int getInvalidWidth() {
+		return invalidWidth;
 	}
 	
 	
