@@ -28,6 +28,8 @@ public class Game {
 		this.menuBackground = quickLoad("menuBackground");
 		this.isPaused = true;
 		enemyTypes = new Enemy[3];
+		//Specifies the default starting tile coordinates
+		//Change the start tiles in Wave class when adding enemies into the wave
 		enemyTypes[0] = new EnemyAlien(1, 0, grid);
 		enemyTypes[1] = new EnemyUFO(1, 0, grid);
 		enemyTypes[2] = new EnemyInfantry(1, 0, grid);

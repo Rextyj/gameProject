@@ -44,7 +44,7 @@ public class Enemy implements Entity{
 		
 		directions = findNextD(startTile);
 		this.currentCheckPoint = 0;
-		populateCheckPointList();
+//		populateCheckPointList();
 	}
 	
 	//this constructor is used in wave class to add different types of enemies to the wave
@@ -73,7 +73,6 @@ public class Enemy implements Entity{
 		
 		directions = findNextD(startTile);
 		this.currentCheckPoint = 0;
-		populateCheckPointList();
 	}
 	
 	private void populateCheckPointList(){
@@ -121,6 +120,7 @@ public class Enemy implements Entity{
 		//this prevents the enemy from jumping ahead due to the amount of time used to set up
 		if(first) {
 			first = false;
+			populateCheckPointList();
 			getRotationAngle();
 		} else {
 			//if a checkpoint is reached
@@ -322,8 +322,8 @@ public class Enemy implements Entity{
 		return startTile;
 	}
 
-	public void setStartTile(Tile startTile) {
-		this.startTile = startTile;
+	public void setStartTile(int tileX, int tileY) {
+		this.startTile = grid.getTile(tileX, tileY);;
 	}
 
 	public TileGrid getGrid() {
