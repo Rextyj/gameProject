@@ -38,7 +38,7 @@ public class PauseMenu {
 				StateManager.setState(GameState.MAINMENU);
 			}
 			if(menuUI.isButtonClicked("Restart")){
-//				StateManager.setState(GameState.EDITOR);
+				StateManager.setState(GameState.RESTART);
 			}
 		}
 		this.leftMouseButtonDown = false;

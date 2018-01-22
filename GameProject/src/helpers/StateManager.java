@@ -11,7 +11,7 @@ import data.TileGrid;
 //State manager generate the instances for each major component of the game
 public class StateManager {
 	public static enum GameState {
-		MAINMENU, GAME, EDITOR, PAUSEMENU
+		MAINMENU, GAME, EDITOR, PAUSEMENU, RESTART
 	}
 	
 	public static GameState gameState = GameState.MAINMENU;
@@ -63,6 +63,11 @@ public class StateManager {
 			//game needs to be still drawing to make the it visible through the background
 			game.keepDrawing();
 			pauseMenu.update();
+			break;
+		case RESTART:
+			game = new Game(map);
+			StateManager.setState(GameState.GAME);
+			break;
 		}
 		
 		/**
