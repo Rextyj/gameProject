@@ -36,6 +36,15 @@ public class StateManager {
 			mainMenu.update();
 			break;
 		case GAME:
+			if(editor != null) {
+				if(editor.isSavedDuringThisSession()) {
+					//apply the new map when a new map is saved during the session
+					map = loadMap("newMap1");
+					game = new Game(map);
+				}
+				//reset it to false so it won't reload every time resume the game
+				editor.setSavedDuringThisSession(false);
+			}
 			if(game == null){
 				game = new Game(map);
 			}

@@ -27,6 +27,7 @@ public class Game {
 	public Game(TileGrid grid){
 		this.grid = grid;
 		this.startTile = grid.getStartTile();
+		this.leftMouseButtonDown = false;
 		this.menuBackground = quickLoad("menuBackground");
 		this.isPaused = true;
 		enemyTypes = new Enemy[3];
@@ -40,7 +41,7 @@ public class Game {
 		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
 					2, 5);
 					*/
-		waveManager = new WaveManager(enemyTypes, 1, 3);
+		waveManager = new WaveManager(enemyTypes, 2, 6);
 		player = new Player(grid, waveManager);
 		player.setup();
 		setupUI();
@@ -50,7 +51,7 @@ public class Game {
 		gameUI = new UI();	
 		gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);//menu width is set to 192
 		//menu for pause, continue and pauseMenu
-		gameUI.createMenu("FunctionMenu", 1280, 896, 192, 64, 4, 0);
+		gameUI.createMenu("FunctionMenu", 1280, 832, 192, 128, 3, 0);
 		towerPickerMenu = gameUI.getMenu("TowerPicker");
 		towerPickerMenu.quickAdd("IceCannon", "iceTowerBase");
 		towerPickerMenu.quickAdd("BlueCannon", "cannonBaseBlue");
@@ -62,11 +63,11 @@ public class Game {
 	
 	private void updateUI(){
 		gameUI.draw();
-		gameUI.drawString(1310,  700, "Lives: " + Player.lives);
-		gameUI.drawString(1310,  800, "Coins: " + Player.coins);
+		gameUI.drawString(1310,  650, "Lives: " + Player.lives);
+		gameUI.drawString(1310,  700, "Coins: " + Player.coins);
 		gameUI.drawString(1310,  600, "Wave " + waveManager.getWaveNumber());
-		gameUI.drawString(1310,  850, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
-		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
+		gameUI.drawString(1310,  750, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
+//		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0) && !leftMouseButtonDown;
 			if(mouseClicked){
@@ -103,11 +104,11 @@ public class Game {
 		drawQuadTex(menuBackground, 1280, 0 ,192, 960);
 		if(!isPaused) {
 			waveManager.update();
+			player.update();
 		} else {
 			waveManager.keepDrawing();
+			player.keepDrawing();
 		}
-		
-		player.update();
 		updateUI();
 		
 	}
@@ -115,7 +116,7 @@ public class Game {
 	public void keepDrawing() {
 		grid.draw();
 		waveManager.keepDrawing();
-		player.update();
+		player.keepDrawing();
 		updateUI();
 	}
 }
