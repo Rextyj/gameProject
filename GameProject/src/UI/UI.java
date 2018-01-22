@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
 import static helpers.Artist.*;
@@ -22,7 +23,7 @@ public class UI {
 	}
 	
 	public void drawString(int x, int y, String text) {
-		font.drawString(x, y, text);
+		font.drawString(x, y, text, Color.red);
 	}
 	
 	//x and y are pixel coordinates

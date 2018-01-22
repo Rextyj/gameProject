@@ -116,5 +116,8 @@ public class TileGrid {
 		return invalidWidth;
 	}
 	
+	public Tile getStartTile() {
+		return map[tilesWide - invalidWidth][0];
+	}
 	
 }

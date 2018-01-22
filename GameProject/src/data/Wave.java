@@ -69,8 +69,8 @@ public class Wave {
 	}
 	
 	private void spawn() {
-//		enemyTypeIndex = r.nextInt(enemyTypes.length);
-		enemyTypeIndex = 2;
+		enemyTypeIndex = r.nextInt(enemyTypes.length);
+//		enemyTypeIndex = 2;
 		//*************************************************************************************************************************************
 		//Note that with this way of adding new enemies into the list, overriding methods in subclasses is not going to work!!!!!!!
 		//*************************************************************************************************************************************
