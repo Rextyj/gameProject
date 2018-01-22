@@ -112,6 +112,9 @@ public abstract class Tower implements Entity {
 			angle = calculateAngle();
 			
 		}
+		/*
+		 * This is not good. Need to delete dead pixels
+		 */
 		//update projectile regardless of the current target being valid or not
 		for(Projectile p : projectiles){
 				p.update();
@@ -129,7 +132,18 @@ public abstract class Tower implements Entity {
 		}
 		
 	}
-	
+	//used when it is paused
+	public void keepDrawing() {
+		drawQuadTex(textures[0], x, y, width, height);
+		if(textures.length > 0){
+			for(int i = 1; i < textures.length; i++){
+				drawQuadTexRot(textures[i], x, y, width, height, angle);
+			}
+		}
+		for(Projectile p : projectiles){
+			p.keepDrawing();
+		}
+	}
 	@Override
 	public float getX() {
 		return x;

@@ -29,7 +29,7 @@ public class Enemy implements Entity{
 		this.y = startTile.getY();
 		this.width = TILE_SIZE;
 		this.height = TILE_SIZE;
-		this.speed = 150;
+		this.speed = 50;
 		this.startHealth = 50;
 		this.health = startHealth;
 		this.hiddenHealth = startHealth;

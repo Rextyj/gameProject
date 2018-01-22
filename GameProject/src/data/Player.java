@@ -102,6 +102,26 @@ public class Player {
 		}
 	}
 	
+	public void keepDrawing() {
+		//update holding tower
+		if(holdingTower){
+			tempTower.setX(getMouseTile().getX());
+			tempTower.setY(getMouseTile().getY());
+			tempTower.draw();
+		}
+
+		//loop through all the towers and update
+		for(Tower t : towerList){
+			t.keepDrawing();
+		}
+		//mouse
+		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){//0 is for left button, 1 right
+			placeTower();
+					
+		}
+		leftMouseButtonDown = Mouse.isButtonDown(0);
+	}
+	
 	private void placeTower(){
 		Tile thisTile = getMouseTile();
 //		System.out.println("" + thisTile.getOccupied());

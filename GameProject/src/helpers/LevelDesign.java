@@ -78,6 +78,7 @@ public class LevelDesign {
 		for(int i = 0; i < 2; i++) {
 			Tile currentTile = new Tile(Integer.parseInt(locInfo[i][0]) * TILE_SIZE, Integer.parseInt(locInfo[i][1]) * TILE_SIZE, TILE_SIZE, TILE_SIZE, tileTypes[i]); 
 			System.out.println("the tile type is" + currentTile.getType().toString());
+			//this is a different setTile method
 			grid.setTile(grid.getTilesWide() - grid.getInvalidWidth() + i, 0, currentTile);
 		}
 		return grid;

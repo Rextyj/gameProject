@@ -76,7 +76,13 @@ public abstract class Projectile implements Entity{
 	public void draw() {
 		drawQuadTex(texture, x, y, 32, 32);
 	}
-
+	
+	public void keepDrawing() {
+		if(alive) {
+			draw();
+		}
+	}
+	
 	@Override
 	public float getX() {
 		return x;

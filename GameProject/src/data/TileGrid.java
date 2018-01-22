@@ -73,6 +73,7 @@ public class TileGrid {
 		map[xCoord][yCoord] = new Tile(xCoord*TILE_SIZE, yCoord*TILE_SIZE, TILE_SIZE, TILE_SIZE, type);
 	}
 	
+	//used in levelDesign class to set start and end tiles in invalid regions
 	public void setTile(int xTileCoord, int yTileCoord, Tile t) {
 		map[xTileCoord][yTileCoord] = t;
 	}
