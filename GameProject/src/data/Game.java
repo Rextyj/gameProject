@@ -28,7 +28,9 @@ public class Game {
 		this.grid = grid;
 		this.startTile = grid.getStartTile();
 		this.leftMouseButtonDown = false;
-		this.menuBackground = quickLoad("menuBackground");
+		//Note that the texture needs to have a dimension of power of 2!!!!
+		//we need to make the texture larger than necessary, so choose the closest 256 * 1024
+		this.menuBackground = quickLoad("sideMenuBackground");
 		this.isPaused = true;
 		enemyTypes = new Enemy[3];
 		//Specifies the default starting tile coordinates
