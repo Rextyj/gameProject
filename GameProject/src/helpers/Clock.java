@@ -5,8 +5,8 @@ import org.lwjgl.Sys;
 public class Clock {
 	
 	private static boolean paused = false;
-	public static long lastFrame, totalTime;
-	public static float d = 0, multiplier = 1;
+	private static long lastFrame;
+	private static float d = 0, multiplier = 1,totalTime;
 	
 	public static long getTime(){
 		return Sys.getTime() * 1000 / Sys.getTimerResolution();
@@ -31,7 +31,7 @@ public class Clock {
 		}
 	}
 	
-	public static float totalTime(){
+	public static float getTotalTime(){
 		return totalTime;
 	}
 	
@@ -41,12 +41,22 @@ public class Clock {
 	
 	public static void update(){
 		d = getDelta();
-		totalTime += d;
+		if(!paused) {
+			totalTime += d;
+		} else {
+			return;
+		}
+		
+	}
+	
+	public static void togglePause() {
+		paused = !paused;
 	}
 	
 	public static void changeMultiplier(float change){//speed up or slow down
-		if(multiplier + change < -1 || multiplier + change > 7){
-			
+		//The Clock multiplier cannot go under 0.2 or go beyound 3
+		if(multiplier + change < 0.2 || multiplier + change > 3){
+			return;
 		} else {
 			multiplier += change;
 		}

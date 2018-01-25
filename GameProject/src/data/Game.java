@@ -2,9 +2,13 @@ package data;
 
 import static helpers.Artist.TILE_SIZE;
 import static helpers.Artist.quickLoad;
+
+import java.awt.Font;
+
 import static helpers.Artist.drawQuadTex;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
@@ -24,6 +28,7 @@ public class Game {
 	private Texture menuBackground;
 	private Enemy[] enemyTypes;
 	private boolean isPaused, leftMouseButtonDown;
+	private TrueTypeFont tempFont;
 	
 	public Game(TileGrid grid){
 		this.grid = grid;
@@ -33,6 +38,7 @@ public class Game {
 		//we need to make the texture larger than necessary, so choose the closest 256 * 1024
 		this.menuBackground = quickLoad("sideMenuBackground");
 		this.isPaused = true;
+		this.tempFont = new TrueTypeFont(new Font("Time New Roam", Font.BOLD, 18), false);
 		enemyTypes = new Enemy[3];
 		//Specifies the default starting tile coordinates
 		//Change the start tiles in Wave class when adding enemies into the wave
@@ -70,6 +76,7 @@ public class Game {
 		gameUI.drawString(1310,  600, "Wave " + waveManager.getWaveNumber());
 		gameUI.drawString(1310,  750, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
 //		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
+		gameUI.drawString(1310,  800, tempFont, "Time Passed: " + Math.round(Clock.getTotalTime() * 10.0) / 10.0 + "");
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0) && !leftMouseButtonDown;
 			if(mouseClicked){
@@ -84,6 +91,8 @@ public class Game {
 				
 				if(functionMenu.isButtonClicked("PauseMenu")) {
 					StateManager.setState(GameState.PAUSEMENU);
+					//this stops the timer
+					Clock.togglePause();
 				}
 				
 				if(functionMenu.isButtonClicked("StartPause")) {

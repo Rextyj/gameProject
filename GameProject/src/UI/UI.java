@@ -26,6 +26,11 @@ public class UI {
 		font.drawString(x, y, text, Color.red);
 	}
 	
+	//Overload: Can Change font size this way
+	public void drawString(int x, int y, TrueTypeFont newFont, String text) {
+		newFont.drawString(x, y, text, Color.red);
+	}
+	
 	//x and y are pixel coordinates
 	public void addButton(String name, String textureName, int x, int y){
 		buttonList.add(new Button(name, quickLoad(textureName), x, y));

@@ -9,6 +9,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
+import helpers.Clock;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
 
@@ -33,6 +34,8 @@ public class PauseMenu {
 		if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
 			if(menuUI.isButtonClicked("Resume")){
 				StateManager.setState(GameState.GAME);
+				//restart the timer
+				Clock.togglePause();
 			}
 			if(menuUI.isButtonClicked("MainMenu")){
 				StateManager.setState(GameState.MAINMENU);
