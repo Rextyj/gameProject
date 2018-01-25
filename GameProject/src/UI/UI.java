@@ -112,7 +112,7 @@ public class UI {
 				//remember, numberOfButtons will increment after this
 				b.setY(y + (numberOfButtons / optionsWidth) * TILE_SIZE);
 			}
-			b.setX(x + padding + (numberOfButtons % 2) * (padding + TILE_SIZE));
+			b.setX(x + padding + (numberOfButtons % optionsWidth) * (padding + TILE_SIZE));
 			numberOfButtons++;
 			menuButtons.add(b);
 		}

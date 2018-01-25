@@ -9,6 +9,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import UI.UI;
 import UI.UI.Menu;
+import helpers.Clock;
 import helpers.StateManager;
 import helpers.StateManager.GameState;
 
@@ -38,11 +39,6 @@ public class Game {
 		enemyTypes[0] = new EnemyAlien(startTile.getXPlace(), startTile.getYPlace(), grid);
 		enemyTypes[1] = new EnemyUFO(startTile.getXPlace(), startTile.getYPlace(), grid);
 		enemyTypes[2] = new EnemyInfantry(startTile.getXPlace(), startTile.getYPlace(), grid);
-		/*
-		//create a wavemanager and add the ufo type enemy wave to the manager
-		waveManager = new WaveManager(new Enemy(quickLoad("UFO64"), grid.getTile(1, 0), grid, TILE_SIZE, TILE_SIZE, 40, 25),
-					2, 5);
-					*/
 		waveManager = new WaveManager(enemyTypes, 2, 6);
 		player = new Player(grid, waveManager);
 		player.setup();
@@ -54,13 +50,17 @@ public class Game {
 		gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);//menu width is set to 192
 		//menu for pause, continue and pauseMenu
 		gameUI.createMenu("FunctionMenu", 1280, 832, 192, 128, 3, 0);
+		
 		towerPickerMenu = gameUI.getMenu("TowerPicker");
 		towerPickerMenu.quickAdd("IceCannon", "iceTowerBase");
 		towerPickerMenu.quickAdd("BlueCannon", "cannonBaseBlue");
+		
 		functionMenu = gameUI.getMenu("FunctionMenu");
 		//change the texture according to the game state
 		functionMenu.quickAdd("StartPause", "startButton");
 		functionMenu.quickAdd("PauseMenu", "menuList");
+		functionMenu.quickAdd("SpeedUp", "speedUpButton");
+		functionMenu.quickAdd("SlowDown", "slowDownButton");
 	}
 	
 	private void updateUI(){
@@ -73,18 +73,19 @@ public class Game {
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0) && !leftMouseButtonDown;
 			if(mouseClicked){
+				
 				if(towerPickerMenu.isButtonClicked("IceCannon")){
 					player.pickTower(new TowerIce(TowerType.IceCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
 				}
-//				if(towerPickerUI.isButtonClicked("RedCannon")){
-//					player.pickTower(new TowerCannon(TowerType.RedCannon, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
-//				}
+				
 				if(towerPickerMenu.isButtonClicked("BlueCannon")){
 					player.pickTower(new TowerCannonBlue(TowerType.BlueCannon, player.getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
 				}
+				
 				if(functionMenu.isButtonClicked("PauseMenu")) {
 					StateManager.setState(GameState.PAUSEMENU);
 				}
+				
 				if(functionMenu.isButtonClicked("StartPause")) {
 					isPaused = !isPaused;
 					if(!isPaused) {
@@ -92,7 +93,14 @@ public class Game {
 					} else {
 						functionMenu.getButton("StartPause").setTexture("startButton");
 					}
-					
+				}
+				
+				if(functionMenu.isButtonClicked("SpeedUp")) {
+					Clock.changeMultiplier(0.2f);//speed up
+				}
+				
+				if(functionMenu.isButtonClicked("SlowDown")) {
+					Clock.changeMultiplier(-0.2f);//slow down
 				}
 			}
 			leftMouseButtonDown = Mouse.isButtonDown(0);
