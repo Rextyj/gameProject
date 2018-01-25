@@ -38,7 +38,7 @@ public class Game {
 		//we need to make the texture larger than necessary, so choose the closest 256 * 1024
 		this.menuBackground = quickLoad("sideMenuBackground");
 		this.isPaused = true;
-		this.tempFont = new TrueTypeFont(new Font("Time New Roam", Font.BOLD, 18), false);
+		this.tempFont = new TrueTypeFont(new Font("Time New Roam", Font.BOLD, 26), false);
 		enemyTypes = new Enemy[3];
 		//Specifies the default starting tile coordinates
 		//Change the start tiles in Wave class when adding enemies into the wave
@@ -71,12 +71,14 @@ public class Game {
 	
 	private void updateUI(){
 		gameUI.draw();
-		gameUI.drawString(1310,  650, "Lives: " + Player.lives);
-		gameUI.drawString(1310,  700, "Coins: " + Player.coins);
+		gameUI.drawString(1310,  625, "Lives: " + Player.lives);
+		gameUI.drawString(1310,  650, "Coins: " + Player.coins);
 		gameUI.drawString(1310,  600, "Wave " + waveManager.getWaveNumber());
-		gameUI.drawString(1310,  750, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
+		gameUI.drawString(1310,  675, "Alive " + waveManager.getCurrentWave().getEnemyList().size());
 //		gameUI.drawString(0,  0, StateManager.framesInLastSecond + "fps");
-		gameUI.drawString(1310,  800, tempFont, "Time Passed: " + Math.round(Clock.getTotalTime() * 10.0) / 10.0 + "");
+		gameUI.drawString(1300,  700, "Time Passed: " + "");
+		gameUI.drawString(1310,  725, (int) Clock.getTotalTime() / 60 + " min " + (int) Clock.getTotalTime() % 60 + " sec.");
+		
 		if(Mouse.next()){
 			boolean mouseClicked = Mouse.isButtonDown(0) && !leftMouseButtonDown;
 			if(mouseClicked){
